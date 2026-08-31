@@ -231,6 +231,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 1: Faturamento Bruto */}
         <MetricCard
           title="Faturamento Bruto"
+          className="h-full"
           value={formatCurrency(totalFaturado)}
           icon={<DollarSign className="w-5 h-5" />}
           iconColorClass="text-amber-500 bg-amber-50 dark:bg-amber-500/10"
@@ -245,6 +246,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 2: Total Recebido */}
         <MetricCard
           title="Total Recebido"
+          className="h-full"
           value={formatCurrency(totalRecebido)}
           icon={<TrendingUp className="w-5 h-5" />}
           iconColorClass="text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10"
@@ -261,12 +263,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 3: Em Aberto / A Receber */}
         <div 
           onClick={() => onNavigateToServices('pendente')}
-          className="cursor-pointer transition-transform hover:-translate-y-0.5"
+          className="cursor-pointer transition-transform hover:-translate-y-0.5 h-full"
         >
           <MetricCard
             title="Em Aberto / A Receber"
             value={formatCurrency(totalPendente)}
-            className="border-red-200/90 dark:border-red-900/50 hover:border-red-300"
+            className="h-full border-red-200/90 dark:border-red-900/50 hover:border-red-300"
             icon={<AlertTriangle className="w-5 h-5" />}
             iconColorClass="text-red-500 bg-red-50 dark:bg-red-500/10"
             subtext={
@@ -283,6 +285,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 4: Lucro Líquido Real */}
         <MetricCard
           title="Lucro Líquido Real"
+          className="h-full"
           value={formatCurrency(lucroLiquidoReal)}
           icon={<Clock className="w-5 h-5" />}
           iconColorClass="text-blue-500 bg-blue-50 dark:bg-blue-500/10"

@@ -17,7 +17,7 @@ interface MetricCardProps {
 export function MetricCard({ title, value, icon, iconColorClass, className, subtext, trend }: MetricCardProps) {
     return (
         <Card className={className}>
-            <CardContent className="p-4 sm:p-6">
+            <CardContent className="p-4 sm:p-6 h-full flex flex-col justify-between">
                 <div className="flex items-start justify-between mb-2 sm:mb-3">
                     <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">{title}</p>
                     <div className={`p-2 sm:p-2.5 rounded-lg flex items-center justify-center shrink-0 ${iconColorClass || 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>

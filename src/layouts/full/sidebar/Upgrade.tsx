@@ -31,7 +31,7 @@ const Upgrade: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('sb_user');
     sessionStorage.removeItem('terraforte_session_user');
-    window.location.reload();
+    window.location.href = '/auth/login';
   };
 
   return (
