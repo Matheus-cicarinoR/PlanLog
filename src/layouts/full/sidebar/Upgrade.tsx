@@ -1,32 +1,9 @@
 import React, { useState } from 'react';
-import { LogOut, Shield, Settings, Moon, Sun, CheckCircle } from 'lucide-react';
+import { LogOut, Shield, Settings, CheckCircle } from 'lucide-react';
 import user1 from "/src/assets/images/profile/user-1.jpg";
 
 const Upgrade: React.FC = () => {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
-
-  React.useEffect(() => {
-    const handleThemeChange = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-    window.addEventListener('theme-change', handleThemeChange);
-    return () => window.removeEventListener('theme-change', handleThemeChange);
-  }, []);
-
-  const toggleTheme = () => {
-    const isCurrentlyDark = document.documentElement.classList.contains('dark');
-    if (isCurrentlyDark) {
-      document.documentElement.classList.remove('dark');
-      setIsDark(false);
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-      localStorage.setItem('theme', 'dark');
-    }
-    window.dispatchEvent(new Event('theme-change'));
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('sb_user');
@@ -60,15 +37,6 @@ const Upgrade: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-1 shrink-0">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            title={isDark ? "Modo Claro" : "Modo Escuro"}
-            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
-          >
-            {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
-          </button>
-
           <button
             type="button"
             onClick={() => setShowLogoutConfirm(true)}

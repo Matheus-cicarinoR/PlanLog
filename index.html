@@ -13,20 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <title>PlanLog — Gestão de Retroescavadeiras & Frotas Pesadas</title>
-    <script>
-      (function() {
-        try {
-          var saved = localStorage.getItem('theme');
-          if (saved === 'dark') {
-            document.documentElement.classList.add('dark');
-          } else if (saved === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.classList.add('dark');
-          }
-        } catch (e) {}
-      })();
-    </script>
   </head>
   <body class="antialiased">
     <div id="root"></div>
