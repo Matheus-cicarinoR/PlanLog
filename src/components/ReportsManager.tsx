@@ -60,7 +60,32 @@ export const ReportsManager: React.FC<ReportsManagerProps> = ({
 
   const totalManutencao = manutencoes.reduce((acc, m) => acc + m.valor_total, 0);
   const totalCombustivel = abastecimentos.reduce((acc, a) => acc + a.valor_total, 0);
-  const totalDespesasGerais = totalManutencao + totalCombustivel + 2700; // diárias e mão de obra
+  
+  const totalOperadoresCost = operadores.reduce((acc, op) => {
+    if (!op.nome) return acc;
+    const nomeSearch = op.nome.split(' ')[0].toLowerCase();
+    const servicosDoOperador = servicos.filter(s => 
+      s.operador_responsavel?.toLowerCase().includes(nomeSearch)
+    );
+
+    let custoOperador = 0;
+    if (op.tipo_remuneracao === 'hora') {
+      const horas = servicosDoOperador.reduce((sum, s) => sum + (Number(s.tempo_horas) || 0), 0);
+      custoOperador = horas * (op.valor_base || 0);
+    } else if (op.tipo_remuneracao === 'comissao') {
+      const totalFaturadoOp = servicosDoOperador.reduce((sum, s) => sum + (Number(s.valor_total) || 0), 0);
+      custoOperador = totalFaturadoOp * ((op.percentual_comissao || 0) / 100);
+    } else if (op.tipo_remuneracao === 'diaria') {
+      const diasUnicos = new Set(servicosDoOperador.map(s => s.data_servico)).size;
+      custoOperador = diasUnicos * (op.valor_base || 0);
+    } else if (op.tipo_remuneracao === 'fixo_mensal') {
+      custoOperador = op.valor_base || 0;
+    }
+
+    return acc + custoOperador;
+  }, 0);
+
+  const totalDespesasGerais = totalManutencao + totalCombustivel + totalOperadoresCost;
   const lucroLiquido = totalRecebido - totalDespesasGerais;
 
   return (
@@ -131,7 +156,7 @@ export const ReportsManager: React.FC<ReportsManagerProps> = ({
             </div>
             <div className="flex items-center justify-between pl-2 sm:pl-4 text-slate-600 dark:text-slate-300">
               <span>• Operador & Diárias</span>
-              <span className="text-blue-500 dark:text-blue-400 font-mono font-bold">{formatCurrency(2700.0)}</span>
+              <span className="text-blue-500 dark:text-blue-400 font-mono font-bold">{formatCurrency(totalOperadoresCost)}</span>
             </div>
           </div>
 
