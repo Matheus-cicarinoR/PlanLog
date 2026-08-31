@@ -201,7 +201,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
           <Tractor className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">Nenhuma máquina cadastrada</h3>
           <p className="text-slate-500 mb-4">Adicione uma nova máquina para começar a registrar serviços e manutenções.</p>
-          <Button onClick={() => handleOpenEdit()}>
+          <Button onClick={handleOpenNew}>
             Cadastrar Primeira Máquina
           </Button>
         </div>
