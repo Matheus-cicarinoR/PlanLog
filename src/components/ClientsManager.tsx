@@ -250,7 +250,7 @@ export const ClientsManager: React.FC<ClientsManagerProps> = ({
 
         <Button
           onClick={handleOpenNewClient}
-          className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-black shadow-md shadow-amber-500/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer"
+          className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-black shadow-md shadow-slate-900/20 dark:shadow-white/20 rounded-xl px-4 py-2.5 text-xs sm:text-sm flex items-center justify-center gap-1.5 cursor-pointer"
         >
           <UserPlus className="w-4 h-4 stroke-[2.5]" />
           Novo Cliente

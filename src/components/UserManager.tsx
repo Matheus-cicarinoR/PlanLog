@@ -338,7 +338,7 @@ export const UserManager: React.FC<UserManagerProps> = ({
               onClick={() => setFilterRole(role)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 filterRole === role
-                  ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold shadow-sm'
                   : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700'
               }`}
             >
@@ -619,7 +619,7 @@ export const UserManager: React.FC<UserManagerProps> = ({
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-amber-500 hover:bg-amber-600 text-slate-950 font-black cursor-pointer shadow-md shadow-amber-500/20"
+                  className="bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-black cursor-pointer shadow-md shadow-slate-900/20 dark:shadow-white/20"
                 >
                   <Check className="w-4 h-4 stroke-[2.5] mr-2" />
                   <span>{editingUser ? 'Atualizar Dados' : 'Salvar Novo Usuário'}</span>

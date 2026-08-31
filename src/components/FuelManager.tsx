@@ -76,7 +76,7 @@ export const FuelManager: React.FC<FuelManagerProps> = ({
 
         <button
           onClick={onOpenNewFuel}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition-transform active:scale-95 shadow-sm cursor-pointer"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-black text-xs sm:text-sm transition-transform active:scale-95 shadow-sm cursor-pointer"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Novo Abastecimento</span>

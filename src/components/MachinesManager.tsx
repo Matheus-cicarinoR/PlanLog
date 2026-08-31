@@ -98,105 +98,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
         )}
       </div>
 
-      {isEditing && currentMaquina ? (
-        <form onSubmit={handleSave} className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 max-w-2xl">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 pb-3">
-            {currentMaquina.id === 'maq-default' || maquinas.some(m => m.id === currentMaquina.id) ? 'Editar Máquina' : 'Cadastrar Nova Máquina'}
-          </h3>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Modelo / Nome da Máquina</label>
-              <Input
-                required
-                placeholder="Ex: Retroescavadeira CAT 416F2"
-                value={currentMaquina.nome || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, nome: e.target.value })}
-              />
-            </div>
-            
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Placa / Identificação</label>
-              <Input
-                required
-                placeholder="Ex: TR-2026-X ou N/A"
-                value={currentMaquina.placa || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, placa: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Ano de Fabricação</label>
-              <Input
-                placeholder="Ex: 2022"
-                value={currentMaquina.ano || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, ano: e.target.value })}
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Valor da Hora Padrão (R$)</label>
-              <Input
-                type="number"
-                step="0.01"
-                required
-                placeholder="Ex: 250"
-                value={currentMaquina.valor_hora_padrao || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, valor_hora_padrao: Number(e.target.value) })}
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Horímetro Atual (Horas)</label>
-              <Input
-                type="number"
-                step="0.1"
-                required
-                placeholder="Ex: 1582.4"
-                value={currentMaquina.horimetro_atual || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, horimetro_atual: Number(e.target.value) })}
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-500 uppercase">Último Óleo Horímetro (Horas)</label>
-              <Input
-                type="number"
-                step="0.1"
-                placeholder="Ex: 1500"
-                value={currentMaquina.ultimo_oleo_horimetro || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, ultimo_oleo_horimetro: Number(e.target.value) })}
-              />
-            </div>
-
-            <div className="space-y-1.5 sm:col-span-2">
-              <label className="text-xs font-bold text-slate-500 uppercase">Intervalo de Troca de Óleo (Horas)</label>
-              <Input
-                type="number"
-                placeholder="Ex: 250"
-                value={currentMaquina.intervalo_troca_oleo_horas || ''}
-                onChange={e => setCurrentMaquina({ ...currentMaquina, intervalo_troca_oleo_horas: Number(e.target.value) })}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-3 border-t border-slate-200 dark:border-slate-800 pt-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setIsEditing(false);
-                setCurrentMaquina(null);
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button type="submit">
-              Salvar Máquina
-            </Button>
-          </div>
-        </form>
-      ) : maquinas.length === 0 ? (
+      {maquinas.length === 0 ? (
         <div className="bg-white dark:bg-slate-900 rounded-2xl p-12 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center justify-center text-center">
           <Tractor className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">Nenhuma máquina cadastrada</h3>
@@ -327,6 +229,108 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
               </Card>
             );
           })}
+        </div>
+      )}
+
+      {isEditing && currentMaquina && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
+          <form onSubmit={handleSave} className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 max-w-2xl w-full animate-scaleUp relative max-h-[92vh] overflow-y-auto">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 pb-3">
+              {currentMaquina.id === 'maq-default' || maquinas.some(m => m.id === currentMaquina.id) ? 'Editar Máquina' : 'Cadastrar Nova Máquina'}
+            </h3>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Modelo / Nome da Máquina</label>
+                <Input
+                  required
+                  placeholder="Ex: Retroescavadeira CAT 416F2"
+                  value={currentMaquina.nome || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, nome: e.target.value })}
+                />
+              </div>
+              
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Placa / Identificação</label>
+                <Input
+                  required
+                  placeholder="Ex: TR-2026-X ou N/A"
+                  value={currentMaquina.placa || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, placa: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Ano de Fabricação</label>
+                <Input
+                  placeholder="Ex: 2022"
+                  value={currentMaquina.ano || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, ano: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Valor da Hora Padrão (R$)</label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  required
+                  placeholder="Ex: 250"
+                  value={currentMaquina.valor_hora_padrao || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, valor_hora_padrao: Number(e.target.value) })}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Horímetro Atual (Horas)</label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  required
+                  placeholder="Ex: 1582.4"
+                  value={currentMaquina.horimetro_atual || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, horimetro_atual: Number(e.target.value) })}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase">Último Óleo Horímetro (Horas)</label>
+                <Input
+                  type="number"
+                  step="0.1"
+                  placeholder="Ex: 1500"
+                  value={currentMaquina.ultimo_oleo_horimetro || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, ultimo_oleo_horimetro: Number(e.target.value) })}
+                />
+              </div>
+
+              <div className="space-y-1.5 sm:col-span-2">
+                <label className="text-xs font-bold text-slate-500 uppercase">Intervalo de Troca de Óleo (Horas)</label>
+                <Input
+                  type="number"
+                  placeholder="Ex: 250"
+                  value={currentMaquina.intervalo_troca_oleo_horas || ''}
+                  onChange={e => setCurrentMaquina({ ...currentMaquina, intervalo_troca_oleo_horas: Number(e.target.value) })}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 border-t border-slate-200 dark:border-slate-800 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setIsEditing(false);
+                  setCurrentMaquina(null);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button type="submit">
+                Salvar Máquina
+              </Button>
+            </div>
+          </form>
         </div>
       )}
     </div>

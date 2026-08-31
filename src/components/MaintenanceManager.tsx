@@ -89,7 +89,7 @@ export const MaintenanceManager: React.FC<MaintenanceManagerProps> = ({
 
         <button
           onClick={onOpenNewMaintenance}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition-transform active:scale-95 shadow-sm cursor-pointer"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-black text-xs sm:text-sm transition-transform active:scale-95 shadow-sm cursor-pointer"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Registrar Manutenção</span>
@@ -200,7 +200,7 @@ export const MaintenanceManager: React.FC<MaintenanceManagerProps> = ({
             onClick={() => handleFilterChange(tab.id)}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold shrink-0 transition-all cursor-pointer ${
               filterTipo === tab.id
-                ? 'bg-amber-500 text-slate-950 font-bold shadow-sm'
+                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-bold shadow-sm'
                 : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700'
             }`}
           >

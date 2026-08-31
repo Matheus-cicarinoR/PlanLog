@@ -300,7 +300,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
         {/* Fixed Header with Mode Switch */}
         <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50 dark:bg-slate-950 shrink-0">
           <div className="flex items-center gap-3">
-            <div className={`p-2.5 rounded-xl text-slate-950 shadow-md ${isDeslocamento ? 'bg-blue-500 shadow-blue-500/20 text-white' : 'bg-amber-500 shadow-amber-500/20'}`}>
+            <div className={`p-2.5 rounded-xl text-slate-100 shadow-md ${isDeslocamento ? 'bg-blue-500 shadow-blue-500/20 text-white' : 'bg-slate-700 shadow-slate-700/20'}`}>
               {isDeslocamento ? <Navigation className="w-5 h-5 stroke-[2.5]" /> : <Tractor className="w-5 h-5 stroke-[2.5]" />}
             </div>
             <div>
@@ -326,7 +326,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   onClick={() => handleSwitchTipoRegistro('servico_cliente')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     !isDeslocamento 
-                      ? 'bg-amber-500 text-slate-950 shadow-xs' 
+                      ? 'bg-slate-700 text-white shadow-xs' 
                       : 'text-slate-600 dark:text-slate-300 hover:text-slate-900'
                   }`}
                 >
@@ -382,12 +382,12 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                 <div className="sm:col-span-1">
                   <div className="flex items-center justify-between mb-1">
                     <label className="text-slate-700 dark:text-slate-300 font-bold flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Cliente Cadastrado *
+                      <User className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" /> Cliente Cadastrado *
                     </label>
                     <button
                       type="button"
                       onClick={() => setShowQuickAddClient(!showQuickAddClient)}
-                      className="text-[11px] font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-0.5 cursor-pointer"
+                      className="text-[11px] font-bold text-slate-600 dark:text-slate-400 hover:underline flex items-center gap-0.5 cursor-pointer"
                     >
                       <Plus className="w-3 h-3" />
                       {showQuickAddClient ? 'Fechar' : 'Novo'}
@@ -399,7 +399,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       <select
                         value={clienteId || ''}
                         onChange={(e) => handleSelectClientOption(e.target.value)}
-                        className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                        className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                         required={!isDeslocamento}
                       >
                         <option value="">Selecione o cliente...</option>
@@ -412,15 +412,15 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       </select>
 
                       {clientes.length === 0 && (
-                        <p className="text-[11px] text-amber-600 dark:text-amber-400 mt-1 font-semibold">
+                        <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 font-semibold">
                           Nenhum cliente cadastrado. Clique em "+ Novo" acima para cadastrar.
                         </p>
                       )}
                     </div>
                   ) : (
                     /* Form de Cadastro Rápido Obrigatório de Cliente */
-                    <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2 animate-fadeIn">
-                      <span className="text-[10px] font-black uppercase tracking-wider text-amber-600 dark:text-amber-400 block">
+                    <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-2 animate-fadeIn">
+                      <span className="text-[10px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-400 block">
                         Cadastrar Novo Cliente
                       </span>
                       <input
@@ -448,7 +448,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                         <button
                           type="button"
                           onClick={handleSaveQuickClient}
-                          className="flex-1 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs cursor-pointer"
+                          className="flex-1 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-black text-xs cursor-pointer"
                         >
                           Salvar e Selecionar
                         </button>
@@ -480,7 +480,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
               {/* Máquina */}
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 flex items-center gap-1.5">
-                  <Tractor className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Máquina Vinculada *
+                  <Tractor className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" /> Máquina Vinculada *
                 </label>
                 <select
                   value={maquinaId}
@@ -496,7 +496,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       }
                     }
                   }}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                 >
                   {maquinas.map((maq) => (
                     <option key={maq.id} value={maq.id}>
@@ -514,7 +514,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                 <select
                   value={operadorResponsavel}
                   onChange={(e) => setOperadorResponsavel(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                 >
                   {operadores.map((op) => (
                     <option key={op.id} value={op.nome}>
@@ -528,7 +528,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
             {/* Linha 2: Cálculos de Horas e Deslocamento */}
             {!isDeslocamento ? (
               <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3.5">
-                <div className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider flex items-center justify-between">
+                <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" /> Horas Faturadas ao Cliente
                   </span>
@@ -547,7 +547,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       required
                       value={tempoHoras}
                       onChange={(e) => handleTempoChange(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-amber-600 dark:text-amber-400 font-mono font-bold text-base focus:outline-none focus:border-amber-400 transition-colors"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 font-mono font-bold text-base focus:outline-none focus:border-slate-400 transition-colors"
                     />
                   </div>
 
@@ -560,7 +560,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       step="1"
                       value={valorHora}
                       onChange={(e) => handleValorHoraChange(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 font-mono font-bold text-base focus:outline-none focus:border-amber-400 transition-colors"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 font-mono font-bold text-base focus:outline-none focus:border-slate-400 transition-colors"
                     />
                   </div>
 
@@ -574,7 +574,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       required
                       value={valorTotal}
                       onChange={(e) => setValorTotal(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-amber-500/40 rounded-lg text-slate-900 dark:text-slate-100 font-mono font-bold text-base focus:outline-none focus:border-amber-400 transition-colors"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 font-mono font-bold text-base focus:outline-none focus:border-slate-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -689,7 +689,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                       onClick={() => handleStatusChange('parcial')}
                       className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                         status === 'parcial'
-                          ? 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 shadow-sm'
+                          ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 shadow-sm'
                           : 'bg-slate-50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
                       }`}
                     >
@@ -700,9 +700,9 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
 
                 {/* Se status for Parcial */}
                 {status === 'parcial' && (
-                  <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-900/10 border border-amber-500/30 grid grid-cols-2 gap-3 animate-fadeIn">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-3 animate-fadeIn">
                     <div>
-                      <label className="block text-amber-600 dark:text-amber-400 text-xs font-semibold mb-1">
+                      <label className="block text-slate-600 dark:text-slate-400 text-xs font-semibold mb-1">
                         Valor Pago Agora (R$)
                       </label>
                       <input
@@ -710,12 +710,12 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                         step="0.01"
                         value={valorPago}
                         onChange={(e) => setValorPago(parseFloat(e.target.value) || 0)}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-amber-500/30 rounded-lg text-emerald-600 dark:text-emerald-400 font-mono font-bold focus:outline-none focus:border-amber-400 transition-colors"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg text-emerald-600 dark:text-emerald-400 font-mono font-bold focus:outline-none focus:border-slate-400 transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-amber-600 dark:text-amber-400 text-xs font-semibold mb-1">
+                      <label className="block text-slate-600 dark:text-slate-400 text-xs font-semibold mb-1">
                         Saldo Restante a Cobrar (R$)
                       </label>
                       <div className="px-3 py-2 bg-white dark:bg-slate-900 border border-red-500/30 rounded-lg text-red-500 dark:text-red-400 font-mono font-bold flex items-center h-[38px]">
@@ -734,7 +734,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     <select
                       value={formaPagamento}
                       onChange={(e) => setFormaPagamento(e.target.value as PaymentMethod)}
-                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                     >
                       <option value="pix">PIX</option>
                       <option value="dinheiro">Dinheiro em Espécie</option>
@@ -751,7 +751,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     <select
                       value={entregueA}
                       onChange={(e) => setEntregueA(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                      className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                     >
                       <option value="Caixa Empresa">Caixa Geral Empresa</option>
                       <option value="Erica">Erica (Financeiro)</option>
@@ -771,7 +771,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     value={detalhePagamento}
                     onChange={(e) => setDetalhePagamento(e.target.value)}
                     placeholder="Ex: 100,00 dinheiro e 75,00 no pix | 5.000,00 no pix falta 5.000,00"
-                    className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 font-medium focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 font-medium focus:outline-none focus:border-slate-400"
                   />
                 </div>
               </>
@@ -789,7 +789,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   required
                   value={dataServico}
                   onChange={(e) => setDataServico(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                 />
               </div>
 
@@ -802,7 +802,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                     type="date"
                     value={dataPagamento}
                     onChange={(e) => setDataPagamento(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-amber-400 cursor-pointer"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                   />
                 </div>
               )}
@@ -818,7 +818,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                 value={descricaoServico}
                 onChange={(e) => setDescricaoServico(e.target.value)}
                 placeholder={isDeslocamento ? "Ex: Garagem ➔ Fazenda Santa Clara / Ida para oficina" : "Ex: Abertura de vala, limpeza de terreno, corte de barranco..."}
-                className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 font-medium focus:outline-none focus:border-amber-400"
+                className="w-full px-3.5 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 font-medium focus:outline-none focus:border-slate-400"
               />
             </div>
           </div>
@@ -829,7 +829,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
               <span className="text-slate-400 uppercase font-bold block text-[10px]">
                 {isDeslocamento ? 'Horas de Operação:' : 'Valor Total a Cobrar:'}
               </span>
-              <span className={`text-base font-black font-mono ${isDeslocamento ? 'text-blue-600 dark:text-blue-400' : 'text-amber-600 dark:text-amber-400'}`}>
+              <span className={`text-base font-black font-mono ${isDeslocamento ? 'text-blue-600 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300'}`}>
                 {isDeslocamento ? `${tempoHoras}h (Não faturável)` : `R$ ${valorTotal.toFixed(2)}`}
               </span>
             </div>
@@ -847,7 +847,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                 className={`px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm shadow-md active:scale-95 transition-transform flex items-center gap-2 cursor-pointer ${
                   isDeslocamento
                     ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/20'
-                    : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-amber-500/20'
+                    : 'bg-slate-700 hover:bg-slate-600 text-white shadow-slate-700/20'
                 }`}
               >
                 {isDeslocamento ? (
