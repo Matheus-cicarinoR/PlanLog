@@ -81,8 +81,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       {/* Left Panel: Cover Image (Hidden on Mobile) */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-slate-900">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1575086884698-cdeaa8da20ba?q=80&w=2070&auto=format&fit=crop")' }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 mix-blend-overlay"
+          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1580901368919-7738efb0f87e?q=80&w=2070&auto=format&fit=crop")' }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-950/90" />
@@ -243,19 +243,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
 
         </div>
 
-        {/* Footer Security Badges */}
-        <div className="flex items-center justify-center gap-4 text-[11px] text-slate-500 mt-8 font-medium">
-          <div className="flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-amber-400" />
-            <span>Restrito</span>
-          </div>
-          <span>&bull;</span>
-          <div className="flex items-center gap-1.5">
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
-            <span>TerraLog</span>
-          </div>
-        </div>
-
+        {/* Footer Security Badges Removidos conforme solicitação */}
       </div>
       </div>
 
