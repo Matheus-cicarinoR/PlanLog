@@ -83,7 +83,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100 flex items-center gap-2">
-            <Tractor className="w-6 h-6 text-amber-500" />
+            <Tractor className="w-6 h-6 text-slate-600 dark:text-slate-300" />
             <span>Frota & Cadastro de Máquinas</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
@@ -218,7 +218,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
                 key={maq.id} 
                 className={`relative overflow-hidden transition-all duration-300 border ${
                   isActive 
-                    ? 'border-amber-400 bg-amber-50/50 dark:bg-amber-500/5 shadow-sm ring-1 ring-amber-400/20' 
+                    ? 'border-slate-400 dark:border-slate-500 bg-slate-50 dark:bg-slate-800/50 shadow-sm ring-1 ring-slate-400/20' 
                     : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 shadow-sm'
                 }`}
               >
@@ -228,7 +228,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-xl ${
                         isActive 
-                          ? 'bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400' 
+                          ? 'bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white' 
                           : 'bg-slate-50 dark:bg-slate-800/50 text-slate-500'
                       }`}>
                         <Tractor className="w-6 h-6" />
@@ -248,7 +248,7 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
                       ) : (
                         <button
                           onClick={() => onSelectMaquina(maq.id)}
-                          className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-amber-400 hover:text-white dark:hover:text-slate-900 text-slate-600 dark:text-slate-300 font-bold transition-all"
+                          className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-800 hover:text-white dark:hover:bg-slate-700 dark:hover:text-white text-slate-600 dark:text-slate-300 font-bold transition-all"
                         >
                           Ativar
                         </button>
@@ -261,14 +261,14 @@ export const MachinesManager: React.FC<MachinesManagerProps> = ({
                     <div>
                       <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase block font-sans font-bold">Horímetro</span>
                       <span className="text-slate-900 dark:text-slate-100 font-bold flex items-center gap-1">
-                        <Gauge className="w-3.5 h-3.5 text-amber-500" />
+                        <Gauge className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                         {formatHours(maq.horimetro_atual)}
                       </span>
                     </div>
                     <div>
                       <span className="text-[9px] text-slate-500 dark:text-slate-400 uppercase block font-sans font-bold">Valor/Hora</span>
                       <span className="text-slate-900 dark:text-slate-100 font-bold flex items-center gap-0.5">
-                        <DollarSign className="w-3.5 h-3.5 text-emerald-500" />
+                        <DollarSign className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                         {formatCurrency(maq.valor_hora_padrao)}
                       </span>
                     </div>

@@ -167,12 +167,12 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
         {/* Ações Rápidas */}
         <div className="flex flex-wrap items-center gap-2">
           <Button variant="secondary" onClick={() => generateFullServicesReportPDF(filteredServicos, config)}>
-            <FileDown className="w-4 h-4 text-amber-400" />
+            <FileDown className="w-4 h-4 text-slate-500" />
             <span className="hidden sm:inline">Exportar PDF</span>
           </Button>
           
           <Button variant="secondary" onClick={handleExportCSV}>
-            <FileDown className="w-4 h-4 text-emerald-400" />
+            <FileDown className="w-4 h-4 text-slate-500" />
             <span className="hidden sm:inline">Exportar CSV</span>
           </Button>
 
@@ -206,7 +206,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
                 onClick={() => handleStatusFilterChange('todos')}
                 className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                   statusFilter === 'todos'
-                    ? 'bg-amber-500 text-slate-950 shadow-sm'
+                    ? 'bg-slate-800 dark:bg-slate-100 text-white dark:text-slate-900 shadow-sm'
                     : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700'
                 }`}
               >
@@ -291,8 +291,8 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
               onClick={() => handleEntregueFilterChange('jurandir')}
               className={`px-2.5 py-1 rounded-md text-xs transition-colors ${
                 entregueFilter === 'jurandir'
-                  ? 'bg-amber-600 text-white font-bold'
-                  : 'text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30'
+                  ? 'bg-slate-700 text-white font-bold'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
               Entregue a Jurandir ({servicos.filter((s) => s.entregue_a?.toLowerCase().includes('jurandir')).length})
@@ -305,7 +305,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm text-xs">
         <div>
           <span className="text-slate-500 dark:text-slate-400 block">Horas Operadas:</span>
-          <span className="font-bold text-amber-600 dark:text-amber-400 text-sm">{formatHours(totalHorasOperadasFiltro)}</span>
+          <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">{formatHours(totalHorasOperadasFiltro)}</span>
           <span className="text-[10px] text-slate-400 block">({formatHours(totalHorasFaturadasFiltro)} cobradas)</span>
         </div>
         <div>
@@ -429,7 +429,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
                       onClick={() => onGenerateReceipt(servico)}
                       className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold flex items-center gap-1 hover:bg-slate-200 cursor-pointer"
                     >
-                      <Receipt className="w-3.5 h-3.5 text-amber-500" />
+                      <Receipt className="w-3.5 h-3.5 text-slate-600 dark:text-slate-400" />
                       Recibo
                     </button>
 
@@ -527,7 +527,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
                         </td>
 
                         <td className="py-3.5 px-3 text-center whitespace-nowrap">
-                          <span className="font-mono font-bold text-amber-600 dark:text-amber-400 block">
+                          <span className="font-mono font-bold text-slate-900 dark:text-slate-100 block">
                             {formatHours(servico.tempo_horas)}
                           </span>
                           {Number(servico.tempo_deslocamento_horas || 0) > 0 && (
@@ -623,7 +623,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
                               className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors cursor-pointer"
                               title="Gerar Recibo / Comprovante"
                             >
-                              <Receipt className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                              <Receipt className="w-4 h-4 text-slate-600 dark:text-slate-400" />
                             </button>
 
                             <button

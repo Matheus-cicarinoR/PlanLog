@@ -193,7 +193,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       ) : (
         <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-4 sm:p-4.5 flex flex-wrap items-center justify-between gap-3 text-slate-700 dark:text-slate-200 shadow-xs hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+            <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 text-slate-900 dark:text-white dark:text-emerald-400 shrink-0">
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
@@ -213,7 +213,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex flex-col items-end">
               <span className="text-[10px] text-slate-400 font-semibold uppercase">Saúde do Lubrificante</span>
-              <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">{vidaUtilPercent}% Restante</span>
+              <span className="text-xs font-black text-slate-900 dark:text-white">{vidaUtilPercent}% Restante</span>
             </div>
             <div className="w-24 bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden shrink-0">
               <div 
@@ -234,11 +234,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           className="h-full"
           value={formatCurrency(totalFaturado)}
           icon={<DollarSign className="w-5 h-5" />}
-          iconColorClass="text-amber-500 bg-amber-50 dark:bg-amber-500/10"
+          
           subtext={
             <div className="flex items-center justify-between w-full text-xs">
               <span className="text-slate-500 dark:text-slate-400">{servicos.length} serviços registrados</span>
-              <span className="text-amber-600 dark:text-amber-400 font-bold">{formatHours(totalHorasTrabalhadas)} total</span>
+              <span className="text-slate-900 dark:text-white font-bold">{formatHours(totalHorasTrabalhadas)} total</span>
             </div>
           }
         />
@@ -249,11 +249,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           className="h-full"
           value={formatCurrency(totalRecebido)}
           icon={<TrendingUp className="w-5 h-5" />}
-          iconColorClass="text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10"
+          
           subtext={
             <div className="flex items-center justify-between w-full text-xs">
               <span className="text-slate-500 dark:text-slate-400">Taxa de Conversão</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+              <span className="text-slate-900 dark:text-white font-bold">
                 {totalFaturado > 0 ? ((totalRecebido / totalFaturado) * 100).toFixed(1) : 0}% Pago
               </span>
             </div>
@@ -270,7 +270,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             value={formatCurrency(totalPendente)}
             className="h-full border-red-200/90 dark:border-red-900/50 hover:border-red-300"
             icon={<AlertTriangle className="w-5 h-5" />}
-            iconColorClass="text-red-500 bg-red-50 dark:bg-red-500/10"
+            
             subtext={
               <div className="flex items-center justify-between w-full text-xs text-red-600 dark:text-red-400">
                 <span>{servicosPendentes.length} pendências</span>
@@ -288,7 +288,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           className="h-full"
           value={formatCurrency(lucroLiquidoReal)}
           icon={<Clock className="w-5 h-5" />}
-          iconColorClass="text-blue-500 bg-blue-50 dark:bg-blue-500/10"
+          
           subtext={
             <div className="flex items-center justify-between w-full text-xs">
               <span className="text-slate-500 dark:text-slate-400">Rentabilidade</span>
@@ -336,7 +336,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {/* Combustível */}
               <div className="flex items-center justify-between p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 shrink-0">
+                  <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white shrink-0">
                     <Fuel className="w-4 h-4" />
                   </div>
                   <div>
@@ -344,7 +344,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <p className="text-xs text-slate-500 dark:text-slate-400">{totalLitrosDiesel.toFixed(0)}L total (~{consumoMedioDiesel.toFixed(1)} L/h)</p>
                   </div>
                 </div>
-                <span className="text-sm font-bold text-amber-600 dark:text-amber-400 shrink-0 whitespace-nowrap pl-2">
+                <span className="text-sm font-bold text-slate-900 dark:text-white shrink-0 whitespace-nowrap pl-2">
                   {formatCurrency(totalCustoCombustivel)}
                 </span>
               </div>
@@ -385,7 +385,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <TrendingUp className="w-4 h-4 text-emerald-500 shrink-1" />
               <CardTitle className="text-sm font-bold truncate">Recebimentos</CardTitle>
             </div>
-            <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold shrink-0 whitespace-nowrap">100% Auditável</span>
+            <span className="text-xs text-slate-900 dark:text-white font-bold shrink-0 whitespace-nowrap">100% Auditável</span>
           </CardHeader>
           <CardContent className="space-y-3 pt-0 flex-1 flex flex-col justify-between">
             <div className="space-y-2.5">
@@ -422,7 +422,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
                   <span className="text-slate-700 dark:text-slate-300 font-semibold">Dinheiro (Jurandir)</span>
                 </div>
-                <span className="font-bold text-amber-600 dark:text-amber-400">{formatCurrency(400.0)}</span>
+                <span className="font-bold text-slate-900 dark:text-white">{formatCurrency(400.0)}</span>
               </div>
             </div>
 
@@ -432,7 +432,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               onClick={onNavigateToOperators}
               className="w-full mt-2 cursor-pointer text-xs"
             >
-              <Users className="w-3.5 h-3.5 text-blue-500 mr-2" />
+              <Users className="w-3.5 h-3.5 text-slate-900 dark:text-white mr-2" />
               Ver Conciliação de Repasses
             </Button>
           </CardContent>
@@ -442,7 +442,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         <Card className="flex flex-col border-red-200/80 dark:border-red-900/50">
           <CardHeader className="flex flex-row items-center justify-between pb-3 mb-2 border-b border-slate-200 dark:border-slate-700 h-[56px] gap-2">
             <div className="flex items-center gap-2 min-w-0">
-              <ShieldAlert className="w-4 h-4 text-red-500 dark:text-red-400 shrink-0" />
+              <ShieldAlert className="w-4 h-4 text-slate-900 dark:text-white shrink-0" />
               <CardTitle className="text-sm font-bold text-red-600 dark:text-red-400 truncate">Cobrança Rápida</CardTitle>
             </div>
             <Badge variant="destructive" className="font-bold shrink-0 whitespace-nowrap">{servicosPendentes.length} pendentes</Badge>
@@ -472,7 +472,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           Falta {formatCurrency(servico.saldo_devedor)}
                         </span>
                         {servico.status === 'parcial' && (
-                          <span className="text-[10px] text-amber-600 bg-amber-50 dark:text-amber-400 dark:bg-amber-500/10 px-1.5 py-0.2 rounded-md font-bold">
+                          <span className="text-[10px] text-slate-900 dark:text-white bg-amber-50 dark:text-amber-400 dark:bg-amber-500/10 px-1.5 py-0.2 rounded-md font-bold">
                             Parcial
                           </span>
                         )}
@@ -499,7 +499,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           openWhatsApp('', text);
                         }}
                         title="Cobrar pelo WhatsApp"
-                        className="h-7 w-7 text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:text-emerald-400 dark:border-emerald-800 dark:hover:bg-emerald-900/30 cursor-pointer"
+                        className="h-7 w-7 text-slate-900 dark:text-white border-emerald-200 hover:bg-emerald-50 dark:text-emerald-400 dark:border-emerald-800 dark:hover:bg-emerald-900/30 cursor-pointer"
                       >
                         <Send className="w-3.5 h-3.5" />
                       </Button>
@@ -515,7 +515,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               onClick={() => onNavigateToServices('pendente')}
               className="w-full mt-2 cursor-pointer text-xs"
             >
-              <AlertTriangle className="w-3.5 h-3.5 text-red-500 mr-2" />
+              <AlertTriangle className="w-3.5 h-3.5 text-slate-900 dark:text-white mr-2" />
               Ver Todos os Serviços Pendentes
             </Button>
           </CardContent>

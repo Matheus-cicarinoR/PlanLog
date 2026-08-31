@@ -17,8 +17,8 @@ const NavItems: React.FC<NavItemsProps> = ({ item }) => {
       target={item.isPro ? '_blank' : '_self'}
       className={`group flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm transition-all duration-200 ${
         isActive
-          ? "bg-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/25 border border-amber-400/80 active"
-          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-slate-100 font-semibold"
+          ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-bold shadow-sm active"
+          : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-slate-100 font-medium"
       }`}
     >
       <div className="flex items-center justify-between w-full">
