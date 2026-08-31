@@ -262,10 +262,13 @@ export const OperatorManager: React.FC<OperatorManagerProps> = ({
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-1">Nenhum operador selecionado</h3>
           <p className="text-slate-500 mb-4">Selecione um operador na lista acima para visualizar seus dados.</p>
           <button
-            onClick={onOpenNewOperator}
+            onClick={() => {
+              setOperatorToEdit(null);
+              setIsModalOpen(true);
+            }}
             className="px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-bold rounded-xl shadow-md shadow-slate-900/20 dark:shadow-white/20 transition-transform active:scale-95 flex items-center gap-2 cursor-pointer"
           >
-            <UserPlus className="w-4 h-4 stroke-[2.5]" />Novo Profissional
+            Cadastrar Novo Profissional
           </button>
         </div>
       )}
