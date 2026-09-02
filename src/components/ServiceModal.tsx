@@ -53,6 +53,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   const [formaPagamento, setFormaPagamento] = useState<PaymentMethod>('pix');
   const [detalhePagamento, setDetalhePagamento] = useState('');
   const [dataServico, setDataServico] = useState(new Date().toISOString().split('T')[0]);
+  const [dataTermino, setDataTermino] = useState(new Date().toISOString().split('T')[0]);
   const [dataPagamento, setDataPagamento] = useState(new Date().toISOString().split('T')[0]);
   const [entregueA, setEntregueA] = useState('Caixa Empresa');
   const [operadorResponsavel, setOperadorResponsavel] = useState('Jurandir');
@@ -94,6 +95,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       setFormaPagamento(servicoToEdit.forma_pagamento);
       setDetalhePagamento(servicoToEdit.detalhe_pagamento || '');
       setDataServico(servicoToEdit.data_servico);
+      setDataTermino(servicoToEdit.data_termino || servicoToEdit.data_servico);
       setDataPagamento(servicoToEdit.data_pagamento || '');
       setEntregueA(servicoToEdit.entregue_a || 'Caixa Empresa');
       setOperadorResponsavel(servicoToEdit.operador_responsavel || (operadores[0]?.nome || 'Jurandir'));
@@ -116,6 +118,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       setFormaPagamento('pix');
       setDetalhePagamento('');
       setDataServico(new Date().toISOString().split('T')[0]);
+      setDataTermino(new Date().toISOString().split('T')[0]);
       setDataPagamento(new Date().toISOString().split('T')[0]);
       setEntregueA('Caixa Empresa');
       setOperadorResponsavel(operadores[0]?.nome || 'Jurandir');
@@ -274,6 +277,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
       forma_pagamento: isDeslocamento ? 'a_definir' : formaPagamento,
       detalhe_pagamento: detalhePagamento.trim(),
       data_servico: dataServico,
+      data_termino: isDeslocamento ? undefined : dataTermino,
       data_pagamento: isDeslocamento || status === 'pendente' ? undefined : dataPagamento || undefined,
       status: isDeslocamento ? 'pago' : saldo === 0 ? 'pago' : pago > 0 ? 'parcial' : 'pendente',
       entregue_a: isDeslocamento ? undefined : entregueA,
@@ -778,11 +782,11 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
             )}
 
             {/* Datas */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div className={`grid grid-cols-1 ${!isDeslocamento && status !== 'pendente' ? 'sm:grid-cols-3' : 'sm:grid-cols-2'} gap-3.5`}>
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-slate-500" /> 
-                  {isDeslocamento ? 'Data do Deslocamento' : 'Data de Execução do Serviço'}
+                  {isDeslocamento ? 'Data do Deslocamento' : 'Data de Início'}
                 </label>
                 <input
                   type="date"
@@ -792,6 +796,21 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
                   className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
                 />
               </div>
+
+              {!isDeslocamento && (
+                <div>
+                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-slate-500" /> Data de Término
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={dataTermino}
+                    onChange={(e) => setDataTermino(e.target.value)}
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 cursor-pointer"
+                  />
+                </div>
+              )}
 
               {!isDeslocamento && status !== 'pendente' && (
                 <div>

@@ -364,7 +364,7 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
                         )}
                       </h4>
                       <div className="text-xs text-slate-500 dark:text-slate-400 flex flex-wrap items-center gap-1.5 mt-0.5">
-                        <span>{formatDate(servico.data_servico)} • {formatHours(servico.tempo_horas)}</span>
+                        <span>{formatDate(servico.data_servico)}{servico.data_termino && servico.data_termino !== servico.data_servico ? ` até ${formatDate(servico.data_termino)}` : ''} • {formatHours(servico.tempo_horas)}</span>
                         {Number(servico.tempo_deslocamento_horas || 0) > 0 && (
                           <span className="text-[10px] px-1.5 py-0.2 rounded bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-mono font-bold">
                             +{servico.tempo_deslocamento_horas}h trânsito

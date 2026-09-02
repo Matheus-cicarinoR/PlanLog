@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS public.servicos (
     forma_pagamento TEXT NOT NULL DEFAULT 'pix',
     detalhe_pagamento TEXT,
     data_servico DATE NOT NULL DEFAULT CURRENT_DATE,
+    data_termino DATE,
     data_pagamento DATE,
     status TEXT NOT NULL DEFAULT 'pago', -- 'pago', 'pendente', 'parcial'
     entregue_a TEXT,

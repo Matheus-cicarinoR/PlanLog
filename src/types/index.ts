@@ -31,6 +31,7 @@ export interface Servico {
   forma_pagamento: PaymentMethod;
   detalhe_pagamento?: string;
   data_servico: string;
+  data_termino?: string;
   data_pagamento?: string;
   status: PaymentStatus;
   entregue_a?: string; // ex: 'Jurandir', 'Erica', 'Caixa Empresa'
