@@ -5,14 +5,14 @@ import { Toaster } from "sonner";
 import { ErrorBoundary } from "./components/shared/ErrorBoundary";
 
 function App() {
-  return (
-    <ErrorBoundary>
-      <SystemProvider>
-        <RouterProvider router={router} />
-        <Toaster theme="dark" position="bottom-right" richColors />
-      </SystemProvider>
-    </ErrorBoundary>
-  );
+ return (
+  <ErrorBoundary>
+   <SystemProvider>
+    <RouterProvider router={router} />
+    <Toaster theme="dark" position="bottom-right" richColors />
+   </SystemProvider>
+  </ErrorBoundary>
+ );
 }
 
 export default App;

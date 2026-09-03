@@ -13,18 +13,18 @@ import { useSystemState } from '../context/SystemContext';
 import { OperatorManager } from '../components/OperatorManager';
 
 const OperatorsView = () => {
-    const systemState = useSystemState();
+  const systemState = useSystemState();
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <OperatorManager
-                operadores={systemState.operadores}
-                servicos={systemState.filteredServicos}
-                config={systemState.dynamicConfig}
-                onUpdateOperador={systemState.handleUpdateOperador}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <OperatorManager
+        operadores={systemState.operadores}
+        servicos={systemState.filteredServicos}
+        config={systemState.dynamicConfig}
+        onUpdateOperador={systemState.handleUpdateOperador}
+      />
+    </div>
+  );
 };
 
 export default OperatorsView;

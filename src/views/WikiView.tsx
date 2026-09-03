@@ -12,7 +12,7 @@ import React from 'react';
 import { WikiManager } from '../components/WikiManager';
 
 const WikiView: React.FC = () => {
-  return <WikiManager />;
+ return <WikiManager />;
 };
 
 export default WikiView;

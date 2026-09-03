@@ -101,6 +101,11 @@ module.exports = {
 			},
 		},
 	plugins: [
-        require('@tailwindcss/typography'),
+		require("tailwindcss-animate"),
+		function({ matchVariant }) {
+			// This completely disables all "dark:" variants from applying
+			matchVariant('dark', () => '&:where(.never-applied)')
+		},
+		require('@tailwindcss/typography'),
 	],
 };

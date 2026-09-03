@@ -13,26 +13,26 @@ import { useSystemState } from '../context/SystemContext';
 import { UserManager } from '../components/UserManager';
 
 const UsersView = () => {
-    const systemState = useSystemState();
-    
-    // For now, simulate admin user
-    const currentUser = {
-        id: 'admin',
-        nome: 'Admin',
-        email: '',
-        cargo: 'Administrador',
-    };
+  const systemState = useSystemState();
+  
+  // For now, simulate admin user
+  const currentUser = {
+    id: 'admin',
+    nome: 'Admin',
+    email: '',
+    cargo: 'Administrador',
+  };
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <UserManager
-                usuarios={systemState.usuarios}
-                currentUser={currentUser as any}
-                onSaveUsuario={systemState.handleSaveUsuario}
-                onDeleteUsuario={systemState.handleDeleteUsuario}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <UserManager
+        usuarios={systemState.usuarios}
+        currentUser={currentUser as any}
+        onSaveUsuario={systemState.handleSaveUsuario}
+        onDeleteUsuario={systemState.handleDeleteUsuario}
+      />
+    </div>
+  );
 };
 
 export default UsersView;

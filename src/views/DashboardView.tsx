@@ -16,39 +16,39 @@ import { useNavigate } from 'react-router';
 import type { Servico } from '../types';
 
 const DashboardView = () => {
-    const systemState = useSystemState();
-    const navigate = useNavigate();
-    const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
-    const [receiptService, setReceiptService] = useState<Servico | null>(null);
+  const systemState = useSystemState();
+  const navigate = useNavigate();
+  const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
+  const [receiptService, setReceiptService] = useState<Servico | null>(null);
 
-    const handleOpenReceipt = (servico: Servico) => {
-        setReceiptService(servico);
-        setIsReceiptModalOpen(true);
-    };
+  const handleOpenReceipt = (servico: Servico) => {
+    setReceiptService(servico);
+    setIsReceiptModalOpen(true);
+  };
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <Dashboard
-                servicos={systemState.filteredServicos}
-                manutencoes={systemState.filteredManutencoes}
-                operadores={systemState.operadores}
-                abastecimentos={systemState.filteredAbastecimentos}
-                config={systemState.dynamicConfig}
-                onNavigateToServices={() => navigate('/servicos')}
-                onNavigateToMaintenance={() => navigate('/manutencoes')}
-                onNavigateToOperators={() => navigate('/operadores')}
-                onQuickSettleService={systemState.handleQuickSettleService}
-                onGenerateReceipt={handleOpenReceipt}
-                isAllMachinesSelected={!systemState.selectedMaquinaId || systemState.selectedMaquinaId === 'todas'}
-            />
-            <ReceiptModal
-                isOpen={isReceiptModalOpen}
-                onClose={() => setIsReceiptModalOpen(false)}
-                servico={receiptService}
-                config={systemState.dynamicConfig}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4" style={{ width: '100%', height: '100%' }}>
+      <Dashboard
+        servicos={systemState.filteredServicos}
+        manutencoes={systemState.filteredManutencoes}
+        operadores={systemState.operadores}
+        abastecimentos={systemState.filteredAbastecimentos}
+        config={systemState.dynamicConfig}
+        onNavigateToServices={() => navigate('/servicos')}
+        onNavigateToMaintenance={() => navigate('/manutencoes')}
+        onNavigateToOperators={() => navigate('/operadores')}
+        onQuickSettleService={systemState.handleQuickSettleService}
+        onGenerateReceipt={handleOpenReceipt}
+        isAllMachinesSelected={!systemState.selectedMaquinaId || systemState.selectedMaquinaId === 'todas'}
+      />
+      <ReceiptModal
+        isOpen={isReceiptModalOpen}
+        onClose={() => setIsReceiptModalOpen(false)}
+        servico={receiptService}
+        config={systemState.dynamicConfig}
+      />
+    </div>
+  );
 };
 
 export default DashboardView;

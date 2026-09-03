@@ -4,15 +4,15 @@ import React from "react";
 
 
 interface MyAppProps {
-  children: React.ReactNode;
-  className?: string;
+ children: React.ReactNode;
+ className?: string;
 }
 const OutlineCard: React.FC<MyAppProps> = ({ children, className }) => {
 
 
-  return (
-    <Card className={`card ${className} border border-ld p-30`}>{children}</Card>
-  );
+ return (
+  <Card className={`card ${className} border border-ld p-30`}>{children}</Card>
+ );
 
 };
 

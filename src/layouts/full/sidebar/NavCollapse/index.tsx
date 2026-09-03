@@ -1,5 +1,5 @@
 
-import  {useState } from "react";
+import {useState } from "react";
 import { ChildItem } from "../Sidebaritems";
 import NavItems from "../NavItems";
 import { useLocation } from "react-router";
@@ -7,57 +7,57 @@ import React from "react";
 import { CustomCollapse } from "../CustomCollapse";
 
 interface NavCollapseProps {
-  item: ChildItem;
+ item: ChildItem;
 }
 
 
 
 const NavCollapse: React.FC<NavCollapseProps> = ({ item }: any) => {
-  const location = useLocation();
-  const pathname = location.pathname;
+ const location = useLocation();
+ const pathname = location.pathname;
 
-  // Determine if any child matches the current path
-  const activeDD = item.children.find((t: { url: string }) => t.url === pathname);
-  
+ // Determine if any child matches the current path
+ const activeDD = item.children.find((t: { url: string }) => t.url === pathname);
+ 
 
-  // Manage open/close state for the collapse
-  const [isOpen, setIsOpen] = useState<boolean>(!!activeDD);
+ // Manage open/close state for the collapse
+ const [isOpen, setIsOpen] = useState<boolean>(!!activeDD);
 
 
-  // Toggle the collapse
-  const handleToggle = () => {
-    setIsOpen((prev) => !prev);
-  };
+ // Toggle the collapse
+ const handleToggle = () => {
+  setIsOpen((prev) => !prev);
+ };
 
-  return (
-    <CustomCollapse
-      label={ `${item.name}`}
-      open={isOpen}
-      onClick={handleToggle}
-      icon={item.icon} 
-      isPro={item.isPro}
-      className={
-        Boolean(activeDD)
-          ? "text-slate-900! bg-primary rounded-xl hover:bg-primary hover:text-slate-900 shadow-btnshdw"
-          : "rounded-full dark:text-slate-900/80 hover:text-primary hover:bg-lightprimary"
-      }
-    >
-      {/* Render child items */}
-      {item.children && (
-        <div className="sidebar-dropdown">
-          {item.children.map((child: any) => (
-            <React.Fragment key={child.id}>
-              {child.children ? (
-                <NavCollapse item={child} /> // Recursive call for nested collapse
-              ) : (
-                <NavItems item={child} />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      )}
-    </CustomCollapse>
-  );
+ return (
+  <CustomCollapse
+   label={ `${item.name}`}
+   open={isOpen}
+   onClick={handleToggle}
+   icon={item.icon} 
+   isPro={item.isPro}
+   className={
+    Boolean(activeDD)
+     ? "text-slate-900! bg-primary rounded-xl hover:bg-primary hover:text-slate-900 shadow-btnshdw"
+     : "rounded-full hover:text-primary hover:bg-lightprimary"
+   }
+  >
+   {/* Render child items */}
+   {item.children && (
+    <div className="sidebar-dropdown">
+     {item.children.map((child: any) => (
+      <React.Fragment key={child.id}>
+       {child.children ? (
+        <NavCollapse item={child} /> // Recursive call for nested collapse
+       ) : (
+        <NavItems item={child} />
+       )}
+      </React.Fragment>
+     ))}
+    </div>
+   )}
+  </CustomCollapse>
+ );
 };
 
 export default NavCollapse;

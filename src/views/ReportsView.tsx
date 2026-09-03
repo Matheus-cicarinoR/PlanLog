@@ -15,33 +15,33 @@ import { ReceiptModal } from '../components/ReceiptModal';
 import type { Servico } from '../types';
 
 const ReportsView = () => {
-    const systemState = useSystemState();
-    const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
-    const [receiptService, setReceiptService] = useState<Servico | null>(null);
+  const systemState = useSystemState();
+  const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
+  const [receiptService, setReceiptService] = useState<Servico | null>(null);
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <ReportsManager
-                servicos={systemState.filteredServicos}
-                manutencoes={systemState.filteredManutencoes}
-                operadores={systemState.operadores}
-                abastecimentos={systemState.filteredAbastecimentos}
-                config={systemState.dynamicConfig}
-                startDate={systemState.startDate}
-                endDate={systemState.endDate}
-                onGenerateReceipt={(s) => {
-                    setReceiptService(s);
-                    setIsReceiptModalOpen(true);
-                }}
-            />
-            <ReceiptModal
-                isOpen={isReceiptModalOpen}
-                onClose={() => setIsReceiptModalOpen(false)}
-                servico={receiptService}
-                config={systemState.dynamicConfig}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <ReportsManager
+        servicos={systemState.filteredServicos}
+        manutencoes={systemState.filteredManutencoes}
+        operadores={systemState.operadores}
+        abastecimentos={systemState.filteredAbastecimentos}
+        config={systemState.dynamicConfig}
+        startDate={systemState.startDate}
+        endDate={systemState.endDate}
+        onGenerateReceipt={(s) => {
+          setReceiptService(s);
+          setIsReceiptModalOpen(true);
+        }}
+      />
+      <ReceiptModal
+        isOpen={isReceiptModalOpen}
+        onClose={() => setIsReceiptModalOpen(false)}
+        servico={receiptService}
+        config={systemState.dynamicConfig}
+      />
+    </div>
+  );
 };
 
 export default ReportsView;

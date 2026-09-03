@@ -1,9 +1,9 @@
 import { Outlet } from "react-router";
 
 const BlankLayout = () => (
-  <>
-    <Outlet />
-  </>
+ <>
+  <Outlet />
+ </>
 );
 
 export default BlankLayout;

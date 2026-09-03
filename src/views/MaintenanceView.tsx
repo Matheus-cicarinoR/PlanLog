@@ -15,36 +15,36 @@ import { MaintenanceModal } from '../components/MaintenanceModal';
 import type { Manutencao } from '../types';
 
 const MaintenanceView = () => {
-    const systemState = useSystemState();
-    const [isMaintenanceModalOpen, setIsMaintenanceModalOpen] = useState(false);
-    const [maintenanceToEdit, setMaintenanceToEdit] = useState<Manutencao | null>(null);
+  const systemState = useSystemState();
+  const [isMaintenanceModalOpen, setIsMaintenanceModalOpen] = useState(false);
+  const [maintenanceToEdit, setMaintenanceToEdit] = useState<Manutencao | null>(null);
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <MaintenanceManager
-                manutencoes={systemState.filteredManutencoes}
-                config={systemState.dynamicConfig}
-                onOpenNewMaintenance={() => {
-                    setMaintenanceToEdit(null);
-                    setIsMaintenanceModalOpen(true);
-                }}
-                onEditMaintenance={(m) => {
-                    setMaintenanceToEdit(m);
-                    setIsMaintenanceModalOpen(true);
-                }}
-                onDeleteMaintenance={systemState.handleDeleteMaintenance}
-            />
-            <MaintenanceModal
-                isOpen={isMaintenanceModalOpen}
-                onClose={() => setIsMaintenanceModalOpen(false)}
-                onSave={systemState.handleSaveMaintenance}
-                manutencaoToEdit={maintenanceToEdit}
-                config={systemState.dynamicConfig}
-                maquinas={systemState.maquinas}
-                selectedMaquinaId={systemState.selectedMaquinaId}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <MaintenanceManager
+        manutencoes={systemState.filteredManutencoes}
+        config={systemState.dynamicConfig}
+        onOpenNewMaintenance={() => {
+          setMaintenanceToEdit(null);
+          setIsMaintenanceModalOpen(true);
+        }}
+        onEditMaintenance={(m) => {
+          setMaintenanceToEdit(m);
+          setIsMaintenanceModalOpen(true);
+        }}
+        onDeleteMaintenance={systemState.handleDeleteMaintenance}
+      />
+      <MaintenanceModal
+        isOpen={isMaintenanceModalOpen}
+        onClose={() => setIsMaintenanceModalOpen(false)}
+        onSave={systemState.handleSaveMaintenance}
+        manutencaoToEdit={maintenanceToEdit}
+        config={systemState.dynamicConfig}
+        maquinas={systemState.maquinas}
+        selectedMaquinaId={systemState.selectedMaquinaId}
+      />
+    </div>
+  );
 };
 
 export default MaintenanceView;

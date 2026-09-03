@@ -16,40 +16,40 @@ import { ServiceModal } from '../components/ServiceModal';
 import type { Servico } from '../types';
 
 const ClientsView = () => {
-    const systemState = useSystemState();
-    const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
-    const [receiptService, setReceiptService] = useState<Servico | null>(null);
+  const systemState = useSystemState();
+  const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
+  const [receiptService, setReceiptService] = useState<Servico | null>(null);
 
-    const handleOpenReceipt = (servico: Servico) => {
-        setReceiptService(servico);
-        setIsReceiptModalOpen(true);
-    };
+  const handleOpenReceipt = (servico: Servico) => {
+    setReceiptService(servico);
+    setIsReceiptModalOpen(true);
+  };
 
-    const handleOpenNewServiceForClient = (clienteNome: string, clienteId?: string) => {
-        systemState.openNewServiceModal();
-    };
+  const handleOpenNewServiceForClient = (clienteNome: string, clienteId?: string) => {
+    systemState.openNewServiceModal();
+  };
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <ClientsManager
-                clientes={systemState.clientes}
-                servicos={systemState.filteredServicos}
-                maquinas={systemState.maquinas}
-                config={systemState.dynamicConfig}
-                onSaveCliente={systemState.handleSaveCliente}
-                onDeleteCliente={systemState.handleDeleteCliente}
-                onOpenNewServiceForClient={handleOpenNewServiceForClient}
-                onQuickSettleService={systemState.handleQuickSettleService}
-                onGenerateReceipt={handleOpenReceipt}
-            />
-            <ReceiptModal
-                isOpen={isReceiptModalOpen}
-                onClose={() => setIsReceiptModalOpen(false)}
-                servico={receiptService}
-                config={systemState.dynamicConfig}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <ClientsManager
+        clientes={systemState.clientes}
+        servicos={systemState.filteredServicos}
+        maquinas={systemState.maquinas}
+        config={systemState.dynamicConfig}
+        onSaveCliente={systemState.handleSaveCliente}
+        onDeleteCliente={systemState.handleDeleteCliente}
+        onOpenNewServiceForClient={handleOpenNewServiceForClient}
+        onQuickSettleService={systemState.handleQuickSettleService}
+        onGenerateReceipt={handleOpenReceipt}
+      />
+      <ReceiptModal
+        isOpen={isReceiptModalOpen}
+        onClose={() => setIsReceiptModalOpen(false)}
+        servico={receiptService}
+        config={systemState.dynamicConfig}
+      />
+    </div>
+  );
 };
 
 export default ClientsView;

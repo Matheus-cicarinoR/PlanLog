@@ -13,19 +13,19 @@ import { useSystemState } from '../context/SystemContext';
 import { MachinesManager } from '../components/MachinesManager';
 
 const MachinesView = () => {
-    const systemState = useSystemState();
+  const systemState = useSystemState();
 
-    return (
-        <div className="flex-1 w-full p-4">
-            <MachinesManager
-                maquinas={systemState.maquinas}
-                activeMaquinaId={systemState.selectedMaquinaId}
-                onSaveMaquina={systemState.handleSaveMaquina}
-                onDeleteMaquina={systemState.handleDeleteMaquina}
-                onSelectMaquina={systemState.handleSelectMaquina}
-            />
-        </div>
-    );
+  return (
+    <div className="flex-1 w-full p-4">
+      <MachinesManager
+        maquinas={systemState.maquinas}
+        activeMaquinaId={systemState.selectedMaquinaId}
+        onSaveMaquina={systemState.handleSaveMaquina}
+        onDeleteMaquina={systemState.handleDeleteMaquina}
+        onSelectMaquina={systemState.handleSelectMaquina}
+      />
+    </div>
+  );
 };
 
 export default MachinesView;
