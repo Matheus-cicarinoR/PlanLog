@@ -11,11 +11,20 @@
  */
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { Servico, ConfiguracoesSistema } from '../types';
+import { Servico, ConfiguracoesSistema, Maquina } from '../types';
 import { formatCurrency, formatDate, formatHours } from './formatters';
 
-export const generateServiceReceiptPDF = (servico: Servico, config: ConfiguracoesSistema) => {
+export const generateServiceReceiptPDF = (servico: Servico, config: ConfiguracoesSistema, maquinas?: Maquina[]) => {
  const doc = new jsPDF();
+ 
+ // Determinar a máquina específica do serviço
+ let maquinaStr = `${config.modelo_maquina} (Placa: ${config.placa_identificacao})`;
+ if (maquinas && servico.maquina_id) {
+   const maquina = maquinas.find(m => m.id === servico.maquina_id);
+   if (maquina) {
+     maquinaStr = `${maquina.nome} (Placa: ${maquina.placa})`;
+   }
+ }
 
  // Cabeçalho / Identidade Visual
  doc.setFillColor(15, 23, 42); // Slate escuro #0F172A
@@ -35,7 +44,7 @@ export const generateServiceReceiptPDF = (servico: Servico, config: Configuracoe
  doc.setFont('helvetica', 'normal');
  doc.setTextColor(203, 213, 225);
  doc.text(`Telefone: ${config.telefone_contato} | CNPJ/CPF: ${config.cnpj_cpf}`, 14, 28);
- doc.text(`Máquina: ${config.modelo_maquina} (Placa: ${config.placa_identificacao})`, 14, 35);
+ doc.text(`Máquina: ${maquinaStr}`, 14, 35);
 
  // Título do Documento
  doc.setTextColor(15, 23, 42);

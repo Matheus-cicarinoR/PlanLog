@@ -1,7 +1,7 @@
-import { Servico, ConfiguracoesSistema } from '../types';
+import { Servico, ConfiguracoesSistema, Maquina } from '../types';
 import { formatCurrency, formatDate, formatHours } from './formatters';
 
-export const getWhatsAppReceiptText = (servico: Servico, config: ConfiguracoesSistema): string => {
+export const getWhatsAppReceiptText = (servico: Servico, config: ConfiguracoesSistema, maquinas?: Maquina[]): string => {
  const isPaid = servico.status === 'pago';
  const isPartial = servico.status === 'parcial';
  
@@ -19,6 +19,16 @@ export const getWhatsAppReceiptText = (servico: Servico, config: ConfiguracoesSi
 
  // Dados do Atendimento
  msg += `*Cliente:* ${servico.cliente}\n`;
+
+ // Determinar a máquina específica do serviço
+ let maquinaStr = config.modelo_maquina;
+ if (maquinas && servico.maquina_id) {
+   const maquina = maquinas.find(m => m.id === servico.maquina_id);
+   if (maquina) {
+     maquinaStr = `${maquina.nome} (Placa: ${maquina.placa})`;
+   }
+ }
+ msg += `*Máquina:* ${maquinaStr}\n`;
  msg += `*Data:* ${formatDate(servico.data_servico)}\n`;
  msg += `*Horas Trabalhadas:* ${formatHours(servico.tempo_horas)}\n`;
  msg += `*Valor da Hora:* ${formatCurrency(servico.valor_hora || 250.0)}/h\n`;

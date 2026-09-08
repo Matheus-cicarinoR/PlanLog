@@ -23,6 +23,7 @@ const ClientsView = Loadable(lazy(() => import('../views/ClientsView')));
 const ReportsView = Loadable(lazy(() => import('../views/ReportsView')));
 const UsersView = Loadable(lazy(() => import('../views/UsersView')));
 const WikiView = Loadable(lazy(() => import('../views/WikiView')));
+const SettingsView = Loadable(lazy(() => import('../views/SettingsView')));
 
 // authentication
 const Register = Loadable(lazy(() => import('../views/auth/register/Register')));
@@ -55,6 +56,7 @@ const Router = [
    { path: '/usuarios', exact: true, element: <UsersView/> },
    { path: '/ajuda', exact: true, element: <WikiView/> },
    { path: '/wiki', exact: true, element: <WikiView/> },
+   { path: '/configuracoes', exact: true, element: <SettingsView/> },
    { path: '*', element: <Navigate to="/auth/404" /> },
   ],
  },

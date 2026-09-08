@@ -17,6 +17,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import type { Maquina, Servico, Manutencao, Operador, Abastecimento, Usuario, Cliente } from '../types';
 import { getSupabaseClient } from '../lib/supabase';
+import { StorageService } from '../lib/storage';
+import { INITIAL_CONFIG } from '../data/initialData';
 
 interface SystemStateContextType {
   maquinas: Maquina[];
@@ -58,6 +60,7 @@ interface SystemStateContextType {
 
   handleSaveCliente: (cliente: Cliente) => Promise<void>;
   handleDeleteCliente: (id: string) => Promise<void>;
+  handleUpdateConfig: (config: ConfiguracoesSistema) => void;
 }
 
 const SystemStateContext = createContext<SystemStateContextType | undefined>(undefined);
@@ -71,6 +74,7 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [operadores, setOperadores] = useState<Operador[]>([]);
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [globalConfig, setGlobalConfig] = useState<ConfiguracoesSistema>(INITIAL_CONFIG);
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -91,11 +95,11 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     : Number(defaultMaquina?.intervalo_troca_oleo_horas || 250);
 
   const dynamicConfig = {
-    nome_empresa: 'PlanLog',
-    cnpj_cpf: '',
-    telefone_contato: '',
-    chave_pix_empresa: '',
-    nome_titular_pix: '',
+    nome_empresa: globalConfig.nome_empresa || 'PlanLog',
+    cnpj_cpf: globalConfig.cnpj_cpf || '',
+    telefone_contato: globalConfig.telefone_contato || '',
+    chave_pix_empresa: globalConfig.chave_pix_empresa || '',
+    nome_titular_pix: globalConfig.nome_titular_pix || '',
     modelo_maquina: activeMaquina ? activeMaquina.nome : 'Frota Consolidada (Todas as Máquinas)',
     placa_identificacao: activeMaquina ? activeMaquina.placa : 'Múltiplas',
     ano_fabricacao: activeMaquina ? activeMaquina.ano : '-',
@@ -103,14 +107,17 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     valor_hora_padrao: activeMaquina ? Number(activeMaquina.valor_hora_padrao || 250) : Number(defaultMaquina?.valor_hora_padrao || 250),
     intervalo_troca_oleo_horas: intervaloOleo > 0 ? intervaloOleo : 250,
     ultimo_oleo_horimetro: ultimoOleo,
-    supabase_url: '',
-    supabase_anon_key: ''
+    supabase_url: globalConfig.supabase_url || '',
+    supabase_anon_key: globalConfig.supabase_anon_key || ''
   };
 
   const openNewServiceModal = () => setIsNewServiceModalOpen(true);
   const supabase = getSupabaseClient();
 
   const fetchInitialData = async () => {
+    const savedConfig = StorageService.getConfig();
+    setGlobalConfig(savedConfig);
+
     if (!supabase) {
       setIsLoading(false);
       return;
@@ -351,6 +358,11 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setClientes(prev => prev.filter(c => c.id !== id));
   };
 
+  const handleUpdateConfig = (config: ConfiguracoesSistema) => {
+    StorageService.saveConfig(config);
+    setGlobalConfig(config);
+  };
+
   const value: SystemStateContextType = {
     maquinas,
     selectedMaquinaId,
@@ -392,6 +404,8 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
     handleSaveCliente,
     handleDeleteCliente,
+    
+    handleUpdateConfig,
   };
 
   return (

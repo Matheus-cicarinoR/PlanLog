@@ -103,6 +103,13 @@ const SidebarContent: MenuItem[] = [
     isPro: false,
    },
    {
+    name: "Configurações da Empresa",
+    icon: "solar:settings-bold-duotone",
+    id: uniqueId(),
+    url: "/configuracoes",
+    isPro: false,
+   },
+   {
     name: "Central de Ajuda (Wiki)",
     icon: "solar:book-bookmark-bold-duotone",
     id: uniqueId(),

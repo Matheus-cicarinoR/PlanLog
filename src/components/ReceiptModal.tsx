@@ -4,6 +4,7 @@ import { Servico, ConfiguracoesSistema } from '../types';
 import { formatCurrency, formatDate, formatHours } from '../lib/formatters';
 import { generateServiceReceiptPDF } from '../lib/pdfGenerator';
 import { getWhatsAppReceiptText, openWhatsApp } from '../lib/whatsapp';
+import { useSystemState } from '../context/SystemContext';
 
 interface ReceiptModalProps {
  isOpen: boolean;
@@ -18,6 +19,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
  servico,
  config,
 }) => {
+ const { maquinas } = useSystemState();
  const [copied, setCopied] = useState(false);
  const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -35,7 +37,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
 
  if (!isOpen || !servico) return null;
 
- const whatsappText = getWhatsAppReceiptText(servico, config);
+ const whatsappText = getWhatsAppReceiptText(servico, config, maquinas);
 
  const handleCopyText = () => {
   navigator.clipboard.writeText(whatsappText);
@@ -81,7 +83,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
         </div>
         <div>
          <h4 className="font-black text-slate-900 text-sm tracking-wide">{config.nome_empresa}</h4>
-         <span className="text-[11px] text-slate-500 ">Máquina: {config.modelo_maquina}</span>
+         <span className="text-[11px] text-slate-500 ">Máquina: {servico.maquina_id ? (maquinas.find(m => m.id === servico.maquina_id)?.nome || config.modelo_maquina) : config.modelo_maquina}</span>
         </div>
        </div>
        <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
@@ -190,7 +192,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
          </a>
         )}
         <button
-         onClick={() => generateServiceReceiptPDF(servico, config)}
+         onClick={() => generateServiceReceiptPDF(servico, config, maquinas)}
          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-sm transition-transform active:scale-95"
         >
          <Download className="w-4 h-4 stroke-[2.5]" />
