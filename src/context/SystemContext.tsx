@@ -218,8 +218,12 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     if (!error) {
       setServicos(prev => {
         const exists = prev.find(s => s.id === servico.id);
-        if (exists) return prev.map(s => s.id === servico.id ? servico : s);
-        return [...prev, servico];
+        const newState = exists ? prev.map(s => s.id === servico.id ? servico : s) : [servico, ...prev];
+        return newState.sort((a, b) => {
+          const dateDiff = new Date(b.data_servico).getTime() - new Date(a.data_servico).getTime();
+          if (dateDiff !== 0) return dateDiff;
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        });
       });
     }
   };

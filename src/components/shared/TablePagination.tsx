@@ -54,10 +54,10 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
     <div className="flex items-center gap-1.5">
      <span className="text-[11px] text-slate-500">Exibir:</span>
      <select
-      value={isAll ? 'all' : pageSize}
+      value={pageSize === 1000000 ? 'all' : pageSize}
       onChange={(e) => {
        if (e.target.value === 'all') {
-        onPageSizeChange(totalItems || 1000);
+        onPageSizeChange(1000000); // Using a large number for 'all'
        } else {
         onPageSizeChange(Number(e.target.value));
        }
@@ -70,7 +70,7 @@ export const TablePagination: React.FC<TablePaginationProps> = ({
         {opt} por pág.
        </option>
       ))}
-      <option value="all">Todos ({totalItems})</option>
+      <option value="all">Todos</option>
      </select>
     </div>
    </div>

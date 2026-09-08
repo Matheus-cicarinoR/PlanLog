@@ -14,6 +14,38 @@ import type { Servico, Manutencao, Operador, Abastecimento, ConfiguracoesSistema
 import { INITIAL_CONFIG, INITIAL_SERVICOS, INITIAL_MANUTENCOES, INITIAL_OPERADORES, INITIAL_ABASTECIMENTOS, INITIAL_USUARIOS } from '../data/initialData';
 import { getSupabaseClient } from './supabase';
 
+export const uploadFile = async (bucket: string, file: File, path?: string): Promise<string | null> => {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    console.error('Supabase client não inicializado');
+    return null;
+  }
+
+  try {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const filePath = path ? `${path}/${fileName}` : fileName;
+
+    const { error: uploadError } = await supabase.storage
+      .from(bucket)
+      .upload(filePath, file);
+
+    if (uploadError) {
+      console.error('Erro ao fazer upload:', uploadError);
+      return null;
+    }
+
+    const { data } = supabase.storage
+      .from(bucket)
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  } catch (error) {
+    console.error('Exceção ao fazer upload do arquivo:', error);
+    return null;
+  }
+};
+
 const KEYS = {
  CONFIG: 'terraforte_config_v1',
  SERVICOS: 'terraforte_servicos_v1',

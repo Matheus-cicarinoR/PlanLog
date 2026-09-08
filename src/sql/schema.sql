@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS public.servicos (
     saldo_devedor NUMERIC(10, 2) NOT NULL DEFAULT 0.00,
     forma_pagamento TEXT NOT NULL DEFAULT 'pix',
     detalhe_pagamento TEXT,
+    comprovante_url TEXT,
     data_servico DATE NOT NULL DEFAULT CURRENT_DATE,
     data_termino DATE,
     data_pagamento DATE,
@@ -155,3 +156,4 @@ CREATE INDEX IF NOT EXISTS idx_servicos_maquina ON public.servicos (maquina_id);
 CREATE INDEX IF NOT EXISTS idx_manutencoes_data ON public.manutencoes (data_manutencao);
 CREATE INDEX IF NOT EXISTS idx_abastecimentos_data ON public.abastecimentos (data);
 CREATE INDEX IF NOT EXISTS idx_clientes_nome ON public.clientes (nome);
+\n-- ==============================================================================\n-- 9. CONFIGURAÇÃO DO STORAGE (BUCKET DE COMPROVANTES)\n-- Execute as linhas abaixo no SQL Editor do Supabase se o bucket não existir\n-- ==============================================================================\n-- insert into storage.buckets (id, name, public) values ('comprovantes', 'comprovantes', true);\n-- create policy "Permitir upload publico comprovantes" on storage.objects for insert with check ( bucket_id = 'comprovantes' );\n-- create policy "Permitir leitura publica comprovantes" on storage.objects for select using ( bucket_id = 'comprovantes' );\n

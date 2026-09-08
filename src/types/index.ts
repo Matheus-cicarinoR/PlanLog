@@ -30,6 +30,7 @@ export interface Servico {
  saldo_devedor: number;
  forma_pagamento: PaymentMethod;
  detalhe_pagamento?: string;
+ comprovante_url?: string;
  data_servico: string;
  data_termino?: string;
  data_pagamento?: string;

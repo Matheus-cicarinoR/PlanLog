@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Servico, PaymentMethod, PaymentStatus, ConfiguracoesSistema, Maquina, Cliente, TipoRegistroServico } from '../types';
 import { useSystemState } from '../context/SystemContext';
+import { uploadFile } from '../lib/storage';
 
 interface ServiceModalProps {
  isOpen: boolean;
@@ -61,6 +62,10 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
  const [observacoes, setObservacoes] = useState('');
  const [maquinaId, setMaquinaId] = useState('maq-default');
 
+ const [comprovanteFile, setComprovanteFile] = useState<File | null>(null);
+ const [comprovanteUrl, setComprovanteUrl] = useState<string>('');
+ const [isUploading, setIsUploading] = useState<boolean>(false);
+
  // Estado para inline quick add de cliente
  const [showQuickAddClient, setShowQuickAddClient] = useState(false);
  const [quickClientNome, setQuickClientNome] = useState('');
@@ -102,6 +107,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    setDescricaoServico(servicoToEdit.descricao_servico || '');
    setObservacoes(servicoToEdit.observacoes || '');
    setMaquinaId(servicoToEdit.maquina_id || 'maq-default');
+   setComprovanteUrl(servicoToEdit.comprovante_url || '');
+   setComprovanteFile(null);
   } else {
    // Padrão novo serviço
    setTipoRegistro('servico_cliente');
@@ -125,6 +132,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    setDescricaoServico('');
    setObservacoes('');
    setMaquinaId(selectedMaquinaId === 'todas' ? (maquinas[0]?.id || 'maq-default') : (selectedMaquinaId || maquinas[0]?.id || 'maq-default'));
+   setComprovanteUrl('');
+   setComprovanteFile(null);
   }
   setShowQuickAddClient(false);
  }, [servicoToEdit, config, isOpen, maquinas, selectedMaquinaId, operadores]);
@@ -249,12 +258,24 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   setQuickClientAddress('');
  };
 
- const handleSubmit = (e: React.FormEvent) => {
+ const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   if (tipoRegistro === 'servico_cliente' && (!clienteId || !cliente.trim())) {
    alert('Por favor, selecione um cliente cadastrado ou clique em "+ Novo" para cadastrar um novo cliente.');
    setShowQuickAddClient(true);
    return;
+  }
+
+  setIsUploading(true);
+  let finalUrl = comprovanteUrl;
+  
+  if (comprovanteFile) {
+    const uploadedUrl = await uploadFile('comprovantes', comprovanteFile, `servicos/${clienteId || 'deslocamento'}`);
+    if (uploadedUrl) {
+      finalUrl = uploadedUrl;
+    } else {
+      alert('Aviso: Falha ao fazer upload do comprovante. O serviço será salvo sem o anexo novo.');
+    }
   }
 
   const isDeslocamento = tipoRegistro === 'deslocamento_interno';
@@ -276,6 +297,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    saldo_devedor: Number(saldo),
    forma_pagamento: isDeslocamento ? 'a_definir' : formaPagamento,
    detalhe_pagamento: detalhePagamento.trim(),
+   comprovante_url: finalUrl,
    data_servico: dataServico,
    data_termino: isDeslocamento ? undefined : dataTermino,
    data_pagamento: isDeslocamento || status === 'pendente' ? undefined : dataPagamento || undefined,
@@ -287,7 +309,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    created_at: servicoToEdit?.created_at || new Date().toISOString(),
   };
 
-  onSave(updatedServico);
+  await onSave(updatedServico);
+  setIsUploading(false);
   onClose();
  };
 
@@ -840,6 +863,33 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
         className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:border-slate-400"
        />
       </div>
+
+      {/* Comprovante */}
+      <div>
+       <label className="block text-slate-700 font-bold mb-1">
+        Anexo (Comprovante / Foto)
+       </label>
+       {comprovanteUrl && !comprovanteFile ? (
+         <div className="flex items-center justify-between p-2 mb-2 bg-blue-50 border border-blue-200 rounded-lg">
+           <a href={comprovanteUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 text-xs font-bold hover:underline flex items-center gap-1">
+             Ver Comprovante Atual
+           </a>
+           <button type="button" onClick={() => setComprovanteUrl('')} className="text-red-500 hover:bg-red-50 p-1 rounded">
+             <X className="w-4 h-4" />
+           </button>
+         </div>
+       ) : null}
+       <input
+        type="file"
+        accept="image/*,.pdf"
+        onChange={(e) => {
+          if (e.target.files && e.target.files.length > 0) {
+            setComprovanteFile(e.target.files[0]);
+          }
+        }}
+        className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer"
+       />
+      </div>
      </div>
 
      {/* Footer (Fixed at Bottom of Modal) */}
@@ -863,13 +913,16 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
        </button>
        <button
         type="submit"
-        className={`px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm shadow-md active:scale-95 transition-transform flex items-center gap-2 cursor-pointer ${
+        disabled={isUploading}
+        className={`px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm shadow-md active:scale-95 transition-transform flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
          isDeslocamento
           ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/20'
           : 'bg-slate-700 hover:bg-slate-600 text-white shadow-slate-700/20'
         }`}
        >
-        {isDeslocamento ? (
+        {isUploading ? (
+          <span>Enviando...</span>
+        ) : isDeslocamento ? (
          <>
           <Navigation className="w-4 h-4" />
           <span>{servicoToEdit ? 'Atualizar Deslocamento' : 'Salvar Deslocamento'}</span>

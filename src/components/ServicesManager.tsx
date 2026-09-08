@@ -433,6 +433,18 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
            Recibo
           </button>
 
+          {servico.comprovante_url && (
+           <a
+            href={servico.comprovante_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 cursor-pointer"
+            title="Ver Comprovante"
+           >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-paperclip"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+           </a>
+          )}
+
           <button
            onClick={() => {
             const text = getWhatsAppReceiptText(servico, config);
@@ -636,6 +648,18 @@ export const ServicesManager: React.FC<ServicesManagerProps> = ({
               >
                <Send className="w-4 h-4" />
               </button>
+
+              {servico.comprovante_url && (
+               <a
+                href={servico.comprovante_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-600 transition-colors cursor-pointer"
+                title="Ver Comprovante"
+               >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-paperclip"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+               </a>
+              )}
 
               <button
                onClick={() => onEditService(servico)}
