@@ -14,57 +14,71 @@ import autoTable from 'jspdf-autotable';
 import { Servico, ConfiguracoesSistema, Maquina } from '../types';
 import { formatCurrency, formatDate, formatHours } from './formatters';
 
-export const generateServiceReceiptPDF = (servico: Servico, config: ConfiguracoesSistema, maquinas?: Maquina[]) => {
- const doc = new jsPDF();
- 
- // Determinar a máquina específica do serviço
- let maquinaStr = `${config.modelo_maquina} (Placa: ${config.placa_identificacao})`;
- if (maquinas && servico.maquina_id) {
-   const maquina = maquinas.find(m => m.id === servico.maquina_id);
-   if (maquina) {
-     maquinaStr = `${maquina.nome} (Placa: ${maquina.placa})`;
-   }
- }
+ export const generateServiceReceiptPDF = (servico: Servico, config: ConfiguracoesSistema, maquinas?: Maquina[]) => {
+  const doc = new jsPDF();
+  
+  // Determinar a máquina específica do serviço
+  let maquinaStr = `${config.modelo_maquina} (Placa: ${config.placa_identificacao})`;
+  if (maquinas && servico.maquina_id) {
+    const maquina = maquinas.find(m => m.id === servico.maquina_id);
+    if (maquina) {
+      maquinaStr = `${maquina.nome} (Placa: ${maquina.placa})`;
+    }
+  }
 
- // Cabeçalho / Identidade Visual
- doc.setFillColor(15, 23, 42); // Slate escuro #0F172A
- doc.rect(0, 0, 210, 40, 'F');
+  // Pre-calcular o tamanho do texto do nome da empresa para aplicar quebra de linha se necessário
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  const maxWidth = 182; // 210 - 14 (esq) - 14 (dir)
+  const nomeEmpresa = config.nome_empresa.toUpperCase();
+  const linhasNome = doc.splitTextToSize(nomeEmpresa, maxWidth);
+  
+  // Calcular altura extra com base na quantidade de linhas
+  const headerBaseHeight = 40;
+  const extraHeightPerLine = 8;
+  const extraHeaderHeight = (linhasNome.length - 1) * extraHeightPerLine;
+  const headerHeight = headerBaseHeight + extraHeaderHeight;
 
- // Faixa amarela industrial CAT
- doc.setFillColor(245, 158, 11); // Amber #F59E0B
- doc.rect(0, 40, 210, 4, 'F');
+  // Cabeçalho / Identidade Visual
+  doc.setFillColor(15, 23, 42); // Slate escuro #0F172A
+  doc.rect(0, 0, 210, headerHeight, 'F');
 
- // Nome da Empresa
- doc.setTextColor(255, 255, 255);
- doc.setFont('helvetica', 'bold');
- doc.setFontSize(20);
- doc.text(config.nome_empresa.toUpperCase(), 14, 20);
+  // Faixa amarela industrial CAT
+  doc.setFillColor(245, 158, 11); // Amber #F59E0B
+  doc.rect(0, headerHeight, 210, 4, 'F');
 
- doc.setFontSize(10);
- doc.setFont('helvetica', 'normal');
- doc.setTextColor(203, 213, 225);
- doc.text(`Telefone: ${config.telefone_contato} | CNPJ/CPF: ${config.cnpj_cpf}`, 14, 28);
- doc.text(`Máquina: ${maquinaStr}`, 14, 35);
+  // Nome da Empresa
+  doc.setTextColor(255, 255, 255);
+  doc.text(linhasNome, 14, 20);
 
- // Título do Documento
- doc.setTextColor(15, 23, 42);
- doc.setFontSize(16);
- doc.setFont('helvetica', 'bold');
- doc.text('COMPROVANTE / ORDEM DE SERVIÇO DE RETROESCAVADEIRA', 14, 55);
+  // Textos complementares do cabeçalho (descem junto com as linhas extras)
+  const startYSub = 20 + extraHeaderHeight;
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(203, 213, 225);
+  doc.text(`Telefone: ${config.telefone_contato} | CNPJ/CPF: ${config.cnpj_cpf}`, 14, startYSub + 8);
+  doc.text(`Máquina: ${maquinaStr}`, 14, startYSub + 15);
 
- doc.setFontSize(10);
- doc.setFont('helvetica', 'normal');
- doc.setTextColor(100, 116, 139);
- doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`, 14, 62);
- doc.text(`Código do Registro: #${servico.id}`, 150, 62);
+  // Título do Documento
+  const contentStartY = headerHeight + 15;
+  doc.setTextColor(15, 23, 42);
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text('COMPROVANTE / ORDEM DE SERVIÇO DE RETROESCAVADEIRA', 14, contentStartY);
 
- // Linha divisória
- doc.setDrawColor(226, 232, 240);
- doc.line(14, 66, 196, 66);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(100, 116, 139);
+  doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`, 14, contentStartY + 7);
+  doc.text(`Código do Registro: #${servico.id}`, 150, contentStartY + 7);
 
- // Tabela de Dados do Cliente e Serviço
- autoTable(doc, {
-  startY: 72,
+  // Linha divisória
+  doc.setDrawColor(226, 232, 240);
+  doc.line(14, contentStartY + 11, 196, contentStartY + 11);
+
+  // Tabela de Dados do Cliente e Serviço
+  autoTable(doc, {
+   startY: contentStartY + 17,
   head: [['DADO', 'INFORMAÇÃO']],
   body: [
    ['Cliente / Contratante', servico.cliente],
@@ -132,22 +146,32 @@ export const generateServiceReceiptPDF = (servico: Servico, config: Configuracoe
 export const generateFullServicesReportPDF = (servicos: Servico[], config: ConfiguracoesSistema, periodText: string = 'Todo o Período') => {
  const doc = new jsPDF('landscape');
 
- // Cabeçalho
- doc.setFillColor(15, 23, 42);
- doc.rect(0, 0, 297, 30, 'F');
-
- doc.setFillColor(245, 158, 11);
- doc.rect(0, 30, 297, 3, 'F');
-
- doc.setTextColor(255, 255, 255);
  doc.setFont('helvetica', 'bold');
  doc.setFontSize(16);
- doc.text(`${config.nome_empresa.toUpperCase()} — RELATÓRIO GERAL DE SERVIÇOS RETROESCAVADEIRA`, 14, 18);
+ const maxWidth = 269; // 297 - 14 (esq) - 14 (dir)
+ const titleText = `${config.nome_empresa.toUpperCase()} — RELATÓRIO GERAL DE SERVIÇOS RETROESCAVADEIRA`;
+ const titleLines = doc.splitTextToSize(titleText, maxWidth);
+ 
+ const headerBaseHeight = 30;
+ const extraHeightPerLine = 7;
+ const extraHeaderHeight = (titleLines.length - 1) * extraHeightPerLine;
+ const headerHeight = headerBaseHeight + extraHeaderHeight;
 
+ // Cabeçalho
+ doc.setFillColor(15, 23, 42);
+ doc.rect(0, 0, 297, headerHeight, 'F');
+
+ doc.setFillColor(245, 158, 11);
+ doc.rect(0, headerHeight, 297, 3, 'F');
+
+ doc.setTextColor(255, 255, 255);
+ doc.text(titleLines, 14, 18);
+
+ const startYSub = 18 + extraHeaderHeight;
  doc.setFontSize(9);
  doc.setFont('helvetica', 'normal');
  doc.setTextColor(203, 213, 225);
- doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')} | Máquina: ${config.modelo_maquina} | Período: ${periodText}`, 14, 25);
+ doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')} | Máquina: ${config.modelo_maquina} | Período: ${periodText}`, 14, startYSub + 7);
 
  const tableData = servicos.map((s) => [
   s.cliente,
@@ -162,7 +186,7 @@ export const generateFullServicesReportPDF = (servicos: Servico[], config: Confi
  ]);
 
  autoTable(doc, {
-  startY: 38,
+  startY: headerHeight + 8,
   head: [['Cliente', 'Tempo', 'Valor Total', 'Valor Pago', 'Saldo Devedor', 'Forma Pgto', 'Data Pgto', 'Observação / Repasse', 'Status']],
   body: tableData,
   theme: 'striped',
