@@ -90,7 +90,16 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   if (servicoToEdit) {
    setTipoRegistro(servicoToEdit.tipo_registro || 'servico_cliente');
    setCliente(servicoToEdit.cliente);
-   setClienteId(servicoToEdit.cliente_id);
+   
+   let cid = servicoToEdit.cliente_id;
+   if (!cid && servicoToEdit.cliente) {
+     const found = clientes.find(c => c.nome.trim().toLowerCase() === servicoToEdit.cliente.trim().toLowerCase());
+     if (found) {
+       cid = found.id;
+     }
+   }
+   setClienteId(cid);
+   
    setTempoHoras(servicoToEdit.tempo_horas);
    setTempoDeslocamentoHoras(servicoToEdit.tempo_deslocamento_horas || 0);
    setValorHora(servicoToEdit.valor_hora || config.valor_hora_padrao || 250.0);
@@ -136,7 +145,7 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    setComprovanteFile(null);
   }
   setShowQuickAddClient(false);
- }, [servicoToEdit, config, isOpen, maquinas, selectedMaquinaId, operadores]);
+  }, [servicoToEdit, config, isOpen, maquinas, selectedMaquinaId, operadores, clientes]);
 
  // Alternar Tipo de Registro
  const handleSwitchTipoRegistro = (tipo: TipoRegistroServico) => {
