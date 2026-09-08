@@ -145,7 +145,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    setComprovanteFile(null);
   }
   setShowQuickAddClient(false);
-  }, [servicoToEdit, config, isOpen, maquinas, selectedMaquinaId, operadores, clientes]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [servicoToEdit, isOpen]); // We only want to reset state when the modal opens or the target service changes
 
  // Alternar Tipo de Registro
  const handleSwitchTipoRegistro = (tipo: TipoRegistroServico) => {

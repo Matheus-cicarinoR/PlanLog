@@ -17,8 +17,17 @@ import { getSupabaseClient } from './supabase';
 export const uploadFile = async (bucket: string, file: File, path?: string): Promise<string | null> => {
   const supabase = getSupabaseClient();
   if (!supabase) {
-    console.error('Supabase client não inicializado');
-    return null;
+    console.warn('Supabase client não inicializado. Fazendo fallback para Base64 local (cuidado com limites de armazenamento).');
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = () => {
+        resolve(null);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   try {

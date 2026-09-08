@@ -168,26 +168,36 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({
       </div>
      </div>
 
-     {/* Ações de Exportação */}
-     <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-      <button
-       onClick={handleCopyText}
-       className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors"
-      >
-       {copied ? <Check className="w-4 h-4 text-emerald-500 " /> : <Copy className="w-4 h-4 text-amber-500 " />}
-       <span>{copied ? 'Texto Copiado!' : 'Copiar Texto'}</span>
-      </button>
-
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
        <button
-        onClick={() => generateServiceReceiptPDF(servico, config)}
-        className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-sm transition-transform active:scale-95"
+        onClick={handleCopyText}
+        className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors"
        >
-        <Download className="w-4 h-4 stroke-[2.5]" />
-        <span>Baixar Comprovante em PDF</span>
+        {copied ? <Check className="w-4 h-4 text-emerald-500 " /> : <Copy className="w-4 h-4 text-amber-500 " />}
+        <span>{copied ? 'Texto Copiado!' : 'Copiar Texto'}</span>
        </button>
+
+       <div className="flex flex-wrap items-center gap-2 justify-end">
+        {servico.comprovante_url && (
+         <a
+          href={servico.comprovante_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold text-xs sm:text-sm shadow-sm transition-transform active:scale-95"
+         >
+          <Receipt className="w-4 h-4 stroke-[2.5]" />
+          <span>Ver Anexo/Comprovante</span>
+         </a>
+        )}
+        <button
+         onClick={() => generateServiceReceiptPDF(servico, config)}
+         className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-sm transition-transform active:scale-95"
+        >
+         <Download className="w-4 h-4 stroke-[2.5]" />
+         <span>Baixar PDF do Recibo</span>
+        </button>
+       </div>
       </div>
-     </div>
 
     </div>
    </div>
