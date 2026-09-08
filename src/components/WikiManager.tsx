@@ -134,6 +134,35 @@ const TUTORIALS: TutorialArticle[] = [
   ]
  },
  {
+  id: 'anexos-comprovantes',
+  category: 'Comprovantes & Anexos',
+  categoryIcon: FileText,
+  categoryColor: 'text-blue-500 bg-blue-500/10 border-blue-500/30',
+  title: 'Como Anexar e Visualizar Comprovantes de Pagamento',
+  shortDesc: 'Aprenda a anexar fotos ou PDFs de comprovantes aos serviços e como acessá-los posteriormente na tela de recibos.',
+  targetRoute: '/servicos',
+  keywords: ['anexo', 'comprovante', 'foto', 'pdf', 'upload', 'arquivo', 'pagamento', 'recibo'],
+  steps: [
+   {
+    title: '1. Abrir ou Criar um Serviço',
+    description: 'Na tela de "Serviços", clique em "+ Adicionar Serviço" ou edite um serviço existente.',
+   },
+   {
+    title: '2. Selecionar o Arquivo',
+    description: 'No final do formulário, em "Anexo (Comprovante / Foto)", clique para selecionar a foto ou PDF do comprovante no seu dispositivo.',
+   },
+   {
+    title: '3. Salvar o Serviço',
+    description: 'Ao clicar em "Salvar / Atualizar Serviço", o sistema fará o upload seguro do seu comprovante para o Supabase (ou usará cache local se estiver offline).',
+   },
+   {
+    title: '4. Como Ver o Anexo Depois',
+    description: 'Basta clicar no ícone de "Recibo" daquele serviço na tabela. Na tela do recibo, haverá um botão azul "Ver Anexo/Comprovante" para abrir a foto/PDF. Você também verá um ícone de clipe diretamente na tabela de serviços!',
+    tip: 'Se você reabrir a edição do serviço, também verá o botão "Ver Comprovante Atual" e a opção de apagá-lo clicando no "X" vermelho.'
+   }
+  ]
+ },
+ {
   id: 'agenda-calendario',
   category: 'Agenda & Calendário',
   categoryIcon: Calendar,
@@ -300,6 +329,11 @@ const FAQS: FAQItem[] = [
   category: 'Serviços & Deslocamentos',
   question: 'Como faço para quitar um serviço que estava em aberto?',
   answer: 'Na tela de "Serviços", localize o registro pendente e clique no botão verde "Quitar Saldo". O sistema registrará o recebimento integral e mudará o status para "Pago" instantaneamente.'
+ },
+ {
+  category: 'Comprovantes & Anexos',
+  question: 'Posso apagar um comprovante que anexei errado?',
+  answer: 'Sim! Abra a edição do serviço novamente, role até a seção de anexos e clique no ícone de "X" vermelho ao lado de "Ver Comprovante Atual". Ao salvar, o sistema removerá a associação do comprovante com aquele serviço.'
  },
  {
   category: 'Manutenções',

@@ -16,6 +16,13 @@ import { getSupabaseClient } from './supabase';
 
 export const uploadFile = async (bucket: string, file: File, path?: string): Promise<string | null> => {
   const supabase = getSupabaseClient();
+  
+  // DOCUMENTAÇÃO: Fallback de Base64
+  // Se o cliente Supabase não estiver inicializado (ex: variáveis de ambiente faltando),
+  // o sistema não falha a operação de salvamento. Em vez disso, converte o arquivo
+  // localmente para uma string Base64 e retorna essa string.
+  // Nota: Isso é útil para desenvolvimento ou modo offline, mas tem limites de tamanho
+  // que dependem da capacidade do LocalStorage do navegador.
   if (!supabase) {
     console.warn('Supabase client não inicializado. Fazendo fallback para Base64 local (cuidado com limites de armazenamento).');
     return new Promise((resolve) => {
