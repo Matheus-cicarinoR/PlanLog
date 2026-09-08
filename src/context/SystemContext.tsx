@@ -15,7 +15,7 @@
  * ou manipular dados (ex: `addServico(...)`) deve consumir este contexto através do hook `useSystem`.
  */
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
-import type { Maquina, Servico, Manutencao, Operador, Abastecimento, Usuario, Cliente } from '../types';
+import type { Maquina, Servico, Manutencao, Operador, Abastecimento, Usuario, Cliente, ConfiguracoesSistema } from '../types';
 import { getSupabaseClient } from '../lib/supabase';
 import { StorageService } from '../lib/storage';
 import { INITIAL_CONFIG } from '../data/initialData';
