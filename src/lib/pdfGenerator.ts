@@ -70,7 +70,7 @@ import { formatCurrency, formatDate, formatHours } from './formatters';
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100, 116, 139);
   doc.text(`Emitido em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`, 14, contentStartY + 7);
-  doc.text(`Código do Registro: #${servico.id}`, 150, contentStartY + 7);
+  doc.text(`Registro: #${servico.id.substring(0, 8).toUpperCase()}`, 196, contentStartY + 7, { align: 'right' });
 
   // Linha divisória
   doc.setDrawColor(226, 232, 240);
