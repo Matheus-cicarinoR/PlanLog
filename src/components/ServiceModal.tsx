@@ -283,11 +283,11 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
   const pago = isDeslocamento ? 0 : status === 'pago' ? finalTotal : status === 'pendente' ? 0 : valorPago;
   const saldo = Math.max(0, finalTotal - pago);
 
-  const updatedServico: Servico = {
+  const updatedServico: any = {
    id: servicoToEdit?.id || `srv-${Date.now()}`,
    tipo_registro: tipoRegistro,
    maquina_id: maquinaId,
-   cliente_id: isDeslocamento ? undefined : clienteId,
+   cliente_id: isDeslocamento ? null : (clienteId || null),
    cliente: isDeslocamento ? 'Deslocamento Interno (Frota)' : cliente.trim(),
    tempo_horas: Number(tempoHoras),
    tempo_deslocamento_horas: isDeslocamento ? 0 : Number(tempoDeslocamentoHoras || 0),
@@ -297,12 +297,12 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({
    saldo_devedor: Number(saldo),
    forma_pagamento: isDeslocamento ? 'a_definir' : formaPagamento,
    detalhe_pagamento: detalhePagamento.trim(),
-   comprovante_url: finalUrl,
+   comprovante_url: finalUrl || null,
    data_servico: dataServico,
-   data_termino: isDeslocamento ? undefined : dataTermino,
-   data_pagamento: isDeslocamento || status === 'pendente' ? undefined : dataPagamento || undefined,
+   data_termino: isDeslocamento ? null : (dataTermino || null),
+   data_pagamento: isDeslocamento || status === 'pendente' ? null : (dataPagamento || null),
    status: isDeslocamento ? 'pago' : saldo === 0 ? 'pago' : pago > 0 ? 'parcial' : 'pendente',
-   entregue_a: isDeslocamento ? undefined : entregueA,
+   entregue_a: isDeslocamento ? null : (entregueA || null),
    operador_responsavel: operadorResponsavel,
    descricao_servico: descricaoServico.trim(),
    observacoes: observacoes.trim(),

@@ -215,7 +215,10 @@ export const SystemProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const handleSaveService = async (servico: Servico) => {
     if (!supabase) return;
     const { error } = await supabase.from('servicos').upsert(servico);
-    if (!error) {
+    if (error) {
+      console.error('Erro ao salvar serviço:', error);
+      alert(`Erro ao salvar serviço: ${error.message}`);
+    } else {
       setServicos(prev => {
         const exists = prev.find(s => s.id === servico.id);
         const newState = exists ? prev.map(s => s.id === servico.id ? servico : s) : [servico, ...prev];
